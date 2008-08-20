@@ -98,6 +98,9 @@ namespace Vrpn {
 		event TrackerChangeEventHandler^ PositionChanged;
 		event TrackerVelocityChangeEventHandler^ VelocityChanged;
 		event TrackerAccelChangeEventHandler^ AccelerationChanged;
+		event TrackerToRoomChangeEventHandler^ TrackerToRoomChanged;
+		event TrackerUnitToSensorChangeEventHandler^ UnitToSensorChanged;
+		event TrackerWorkspaceBoundsChangeEventHandler^ WorkspaceBoundsChanged;
 
 	private:
 		::vrpn_Tracker_Remote *m_tracker;
@@ -108,10 +111,16 @@ namespace Vrpn {
 		void onPositionChange(void *userData, const vrpn_TRACKERCB info);
 		void onVelocityChange(void *userData, const vrpn_TRACKERVELCB info);
 		void onAccelChange(void *userData, const vrpn_TRACKERACCCB info);
+		void onT2RChange(void *userData, const vrpn_TRACKERTRACKER2ROOMCB info);
+		void onU2SChange(void *userData, const vrpn_TRACKERUNIT2SENSORCB info);
+		void onBoundsChange(void *userData, const vrpn_TRACKERWORKSPACECB info);
 
 		// References to VRPN callback delegates
 		System::Runtime::InteropServices::GCHandle gc_positionChange;
 		System::Runtime::InteropServices::GCHandle gc_velocityChange;
 		System::Runtime::InteropServices::GCHandle gc_accelChange;
+		System::Runtime::InteropServices::GCHandle gc_t2rChange;
+		System::Runtime::InteropServices::GCHandle gc_u2sChange;
+		System::Runtime::InteropServices::GCHandle gc_boundsChange;
 	};
 }
