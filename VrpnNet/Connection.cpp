@@ -37,7 +37,7 @@ Connection^ Connection::GetConnectionByName(System::String ^name)
 	IntPtr hName = Marshal::StringToHGlobalAnsi(name);
 	const char *cName = static_cast<const char *>(hName.ToPointer());
 
-	vrpn_Connection *conn = vrpn_get_connection_by_name(cName);
+	vrpn_Connection *conn = ::vrpn_get_connection_by_name(cName);
 	Connection^ retVal = gcnew Connection(conn);
 
 	Marshal::FreeHGlobal(hName);

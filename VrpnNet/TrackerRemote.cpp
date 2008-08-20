@@ -8,12 +8,14 @@ using namespace System::Runtime::InteropServices;
 
 using namespace Vrpn;
 
-delegate void TrackerChangeCallback(void *userData, const vrpn_TRACKERCB info);
-delegate void TrackerVelocityCallback(void *userData, const vrpn_TRACKERVELCB info);
-delegate void TrackerAccelCallback(void *userData, const vrpn_TRACKERACCCB info);
-delegate void TrackerToRoomCallback(void *userData, const vrpn_TRACKERTRACKER2ROOMCB info);
-delegate void TrackerUnitToSensorCallback(void *userData, const vrpn_TRACKERUNIT2SENSORCB info);
-delegate void TrackerWorkspaceCallback(void *userData, const vrpn_TRACKERWORKSPACECB info);
+namespace {
+	delegate void TrackerChangeCallback(void *userData, const vrpn_TRACKERCB info);
+	delegate void TrackerVelocityCallback(void *userData, const vrpn_TRACKERVELCB info);
+	delegate void TrackerAccelCallback(void *userData, const vrpn_TRACKERACCCB info);
+	delegate void TrackerToRoomCallback(void *userData, const vrpn_TRACKERTRACKER2ROOMCB info);
+	delegate void TrackerUnitToSensorCallback(void *userData, const vrpn_TRACKERUNIT2SENSORCB info);
+	delegate void TrackerWorkspaceCallback(void *userData, const vrpn_TRACKERWORKSPACECB info);
+}
 
 TrackerRemote::TrackerRemote(String ^name)
 {
@@ -209,4 +211,14 @@ void TrackerRemote::onU2SChange(void *, const vrpn_TRACKERUNIT2SENSORCB info)
 		info.unit2sensor_quat[Q_Z], info.unit2sensor_quat[Q_W]);
 
 	UnitToSensorChanged(this, e);
+}
+
+void TrackerRemote::onBoundsChange(void *userData, const vrpn_TRACKERWORKSPACECB info)
+{
+	TrackerWorkspaceBoundsEventArgs ^e = gcnew TrackerWorkspaceBoundsEventArgs();
+	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
+	e->WorkspaceMin = Vector3(info.workspace_min[0], info.workspace_min[1], info.workspace_min[2]);
+	e->WorkspaceMax = Vector3(info.workspace_max[0], info.workspace_max[1], info.workspace_max[2]);
+
+	WorkspaceBoundsChanged(this, e);
 }
