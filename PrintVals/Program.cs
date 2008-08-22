@@ -9,7 +9,7 @@ namespace PrintVals
     {
         static void PositionChanged(object sender, TrackerChangeEventArgs e)
         {
-            Console.WriteLine("{0} {1} {2} {3} {4}", e.Time, e.Sensor, e.Position.X, e.Position.Y, e.Position.Z);
+            Console.WriteLine("{0} {1} {2} {3} {4}", e.Time.ToLocalTime(), e.Sensor, e.Position.X, e.Position.Y, e.Position.Z);
         }
 
         static void ButtonChanged(object sender, ButtonChangeEventArgs e)

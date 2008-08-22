@@ -159,9 +159,8 @@ void TrackerRemote::onPositionChange(void *, const vrpn_TRACKERCB info)
 	TrackerChangeEventArgs ^e = gcnew TrackerChangeEventArgs();
 	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
 	e->Sensor = info.sensor;
-	e->Position = Vector3(info.pos[0], info.pos[1], info.pos[2]);
-	e->Orientation = Quaternion(info.quat[Q_X], info.quat[Q_Y], 
-		info.quat[Q_Z], info.quat[Q_W]);
+	e->Position = VrpnUtils::ConvertVector(info.pos);
+	e->Orientation = VrpnUtils::ConvertQuat(info.quat);
 
 	PositionChanged(this, e);
 }
@@ -171,9 +170,8 @@ void TrackerRemote::onVelocityChange(void *, const vrpn_TRACKERVELCB info)
 	TrackerVelocityChangeEventArgs ^e = gcnew TrackerVelocityChangeEventArgs();
 	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
 	e->Sensor = info.sensor;
-	e->Velocity = Vector3(info.vel[0], info.vel[1], info.vel[2]);
-	e->VelocityQuat = Quaternion(info.vel_quat[Q_X], info.vel_quat[Q_Y], 
-		info.vel_quat[Q_Z], info.vel_quat[Q_W]);
+	e->Velocity = VrpnUtils::ConvertVector(info.vel);
+	e->VelocityQuat = VrpnUtils::ConvertQuat(info.vel_quat);
 	e->VelocityQuatDeltaSeconds = info.vel_quat_dt;
 
 	VelocityChanged(this, e);
@@ -184,9 +182,8 @@ void TrackerRemote::onAccelChange(void *, const vrpn_TRACKERACCCB info)
 	TrackerAccelChangeEventArgs ^e = gcnew TrackerAccelChangeEventArgs();
 	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
 	e->Sensor = info.sensor;
-	e->Acceleration = Vector3(info.acc[0], info.acc[1], info.acc[2]);
-	e->AccelerationQuat = Quaternion(info.acc_quat[Q_X], info.acc_quat[Q_Y], 
-		info.acc_quat[Q_Z], info.acc_quat[Q_W]);
+	e->Acceleration = VrpnUtils::ConvertVector(info.acc);
+	e->AccelerationQuat = VrpnUtils::ConvertQuat(info.acc_quat);
 	e->AccelerationQuatDeltaSeconds = info.acc_quat_dt;
 
 	AccelerationChanged(this, e);
@@ -196,9 +193,8 @@ void TrackerRemote::onT2RChange(void *, const vrpn_TRACKERTRACKER2ROOMCB info)
 {
 	TrackerToRoomEventArgs ^e = gcnew TrackerToRoomEventArgs();
 	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
-	e->Position = Vector3(info.tracker2room[0], info.tracker2room[1], info.tracker2room[2]);
-	e->Orientation = Quaternion(info.tracker2room_quat[Q_X], info.tracker2room_quat[Q_Y],
-		info.tracker2room_quat[Q_Z], info.tracker2room_quat[Q_W]);
+	e->Position = VrpnUtils::ConvertVector(info.tracker2room);
+	e->Orientation = VrpnUtils::ConvertQuat(info.tracker2room_quat);
 }
 
 void TrackerRemote::onU2SChange(void *, const vrpn_TRACKERUNIT2SENSORCB info)
@@ -206,19 +202,18 @@ void TrackerRemote::onU2SChange(void *, const vrpn_TRACKERUNIT2SENSORCB info)
 	TrackerUnitToSensorEventArgs ^e = gcnew TrackerUnitToSensorEventArgs();
 	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
 	e->Sensor = info.sensor;
-	e->Position = Vector3(info.unit2sensor[0], info.unit2sensor[1], info.unit2sensor[2]);
-	e->Orientation = Quaternion(info.unit2sensor_quat[Q_X], info.unit2sensor_quat[Q_Y], 
-		info.unit2sensor_quat[Q_Z], info.unit2sensor_quat[Q_W]);
+	e->Position = VrpnUtils::ConvertVector(info.unit2sensor);
+	e->Orientation = VrpnUtils::ConvertQuat(info.unit2sensor_quat);
 
 	UnitToSensorChanged(this, e);
 }
 
-void TrackerRemote::onBoundsChange(void *userData, const vrpn_TRACKERWORKSPACECB info)
+void TrackerRemote::onBoundsChange(void *, const vrpn_TRACKERWORKSPACECB info)
 {
 	TrackerWorkspaceBoundsEventArgs ^e = gcnew TrackerWorkspaceBoundsEventArgs();
 	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
-	e->WorkspaceMin = Vector3(info.workspace_min[0], info.workspace_min[1], info.workspace_min[2]);
-	e->WorkspaceMax = Vector3(info.workspace_max[0], info.workspace_max[1], info.workspace_max[2]);
+	e->WorkspaceMin = VrpnUtils::ConvertVector(info.workspace_min);
+	e->WorkspaceMax = VrpnUtils::ConvertVector(info.workspace_max);
 
 	WorkspaceBoundsChanged(this, e);
 }

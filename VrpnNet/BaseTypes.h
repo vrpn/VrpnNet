@@ -22,15 +22,6 @@ namespace Vrpn {
 		}
 	};
 
-	ref class VrpnUtils
-	{
-	public:
-		static System::DateTime ConvertTimeval(struct timeval tm);
-	
-	private:
-		VrpnUtils();
-	};
-
 	[System::Diagnostics::DebuggerDisplay("Vector3 ({X}, {Y}, {Z})")]
 	public value class Vector3
 	{
@@ -52,5 +43,16 @@ namespace Vrpn {
 		property System::Double Y;
 		property System::Double Z;
 		property System::Double W;
+	};
+
+	ref class VrpnUtils
+	{
+	public:
+		static System::DateTime ConvertTimeval(struct timeval tm);
+		static Vrpn::Vector3 ConvertVector(const double vec[3]);
+		static Vrpn::Quaternion ConvertQuat(const double quat[4]);
+	
+	private:
+		VrpnUtils();
 	};
 }
