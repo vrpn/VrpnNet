@@ -70,7 +70,7 @@ void ButtonRemote::RegisterHandler()
 	m_button->register_change_handler(0, pChangeHandler);
 }
 
-void ButtonRemote::onButtonChange(void *userData, vrpn_BUTTONCB info)
+void ButtonRemote::onButtonChange(void *userData, const vrpn_BUTTONCB info)
 {
 	ButtonChangeEventArgs ^e = gcnew ButtonChangeEventArgs();
 	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);

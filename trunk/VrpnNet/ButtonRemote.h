@@ -38,7 +38,7 @@ namespace Vrpn {
 		::vrpn_Button_Remote *m_button;
 
 		void RegisterHandler();
-		void onButtonChange(void *userData, vrpn_BUTTONCB info);
+		void onButtonChange(void *userData, const vrpn_BUTTONCB info);
 
 		System::Runtime::InteropServices::GCHandle gc_callback;
 	};
