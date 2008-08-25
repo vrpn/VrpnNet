@@ -31,6 +31,16 @@ namespace Vrpn {
 
 		vrpn_Connection* ToPointer();
 
+		property System::Boolean DoingOkay
+		{
+			System::Boolean get();
+		}
+
+		property System::Boolean Connected
+		{
+			System::Boolean get();
+		}
+
 	private:
 		Connection(vrpn_Connection *connection);
 

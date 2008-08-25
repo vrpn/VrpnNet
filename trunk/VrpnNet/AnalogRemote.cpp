@@ -64,17 +64,24 @@ Connection^ AnalogRemote::GetConnection()
 	return Connection::FromPointer(m_analog->connectionPtr());
 }
 
-void AnalogRemote::onAnalogChange(void *userData, const vrpn_ANALOGCB info)
+void AnalogRemote::onAnalogChange(void *, const vrpn_ANALOGCB info)
 {
 	AnalogChangeEventArgs ^e = gcnew AnalogChangeEventArgs();
 	e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
 	e->Channels = gcnew array<double>(info.num_channel);
 
+	pin_ptr<double> clrChannels = &e->Channels[0];
+
+	::memcpy_s(clrChannels, info.num_channel * sizeof(double), 
+		info.channel, vrpn_CHANNEL_MAX * sizeof(double));
+
+	/*
 	// TODO: Investigate possibility of doing this with memcpy
 	for (int i = 0; i < info.num_channel; i++)
 	{
 		e->Channels[i] = info.channel[i];
 	}
+	*/
 
 	AnalogChanged(this, e);
 }

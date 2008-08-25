@@ -44,3 +44,13 @@ Connection^ Connection::GetConnectionByName(System::String ^name)
 
 	return retVal;
 }
+
+Boolean Connection::DoingOkay::get()
+{
+	return m_connection->doing_okay() != 0;
+}
+
+Boolean Connection::Connected::get()
+{
+	return m_connection->connected() != 0;
+}

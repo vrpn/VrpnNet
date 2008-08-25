@@ -45,7 +45,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -190,6 +190,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\AnalogOutputRemote.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\AnalogRemote.cpp"
 				>
 			</File>
@@ -203,6 +207,10 @@
 			</File>
 			<File
 				RelativePath=".\Connection.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DialRemote.cpp"
 				>
 			</File>
 			<File
@@ -230,6 +238,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\TextSender.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TrackerRemote.cpp"
 				>
 			</File>
@@ -248,6 +260,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\AnalogOutputRemote.h"
+				>
+			</File>
+			<File
 				RelativePath=".\AnalogRemote.h"
 				>
 			</File>
@@ -264,6 +280,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DialRemote.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
@@ -273,6 +293,10 @@
 			</File>
 			<File
 				RelativePath=".\Stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Text.h"
 				>
 			</File>
 			<File
