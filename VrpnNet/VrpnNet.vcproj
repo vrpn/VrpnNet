@@ -238,6 +238,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\TextReceiver.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TextSender.cpp"
 				>
 			</File>
