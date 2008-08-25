@@ -12,26 +12,32 @@ using namespace System::Security::Permissions;
 // associated with an assembly.
 //
 [assembly:AssemblyTitleAttribute("VrpnNet")];
-[assembly:AssemblyDescriptionAttribute("")];
+[assembly:AssemblyDescriptionAttribute("VRPN bindings for .NET languages")];
 [assembly:AssemblyConfigurationAttribute("")];
-[assembly:AssemblyCompanyAttribute("")];
+[assembly:AssemblyCompanyAttribute("Chris VanderKnyff")];
 [assembly:AssemblyProductAttribute("VrpnNet")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c)  2008")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c) 2008 Chris VanderKnyff.")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 
+// VrpnNet versioning policy:
 //
-// Version information for an assembly consists of the following four values:
+// Major Version is set when breaking changes are made to the API.
+//     Version 0 is an exception; major changes may happen between
+//     any two 0.x versions as I get the API to a stable point.
 //
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
+// Minor Version is the typical increment-per-release counter.
+//     Minor version changes should be backwards compatible.
 //
-// You can specify all the value or you can default the Revision and Build Numbers
-// by using the '*' as shown below:
+// Build Number is the VRPN minor release we linked against.
+//     VRPN 7.17, for instance, is build 17. Should we go to VRPN 8.0
+//     while this project still lives, the major version will change
+//     (due to the breaking VRPN change) and the build will go to (in
+//     this case) zero.
+//
+// Revision is set to *, so it changes with every build.
 
-[assembly:AssemblyVersionAttribute("0.5.0.1")];
+[assembly:AssemblyVersionAttribute("0.6.17.*")];
 
 [assembly:ComVisible(false)];
 

@@ -59,9 +59,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(NoInherit)"
+				AdditionalDependencies="$(NoInherit) quat.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;C:\Libs\vrpn\pc_win32\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;C:\Libs\vrpn\pc_win32\$(ConfigurationName)&quot;;&quot;C:\Libs\quat\pc_win32\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
@@ -136,9 +136,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(NoInherit)"
+				AdditionalDependencies="$(NoInherit) quat.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;C:\Libs\vrpn\pc_win32\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;C:\Libs\vrpn\pc_win32\$(ConfigurationName)&quot;;&quot;C:\Libs\quat\pc_win32\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 				KeyFile="VrpnNet.snk"
@@ -214,6 +214,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PoserRemote.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Quaternion.cpp"
 				>
 			</File>
@@ -285,6 +289,10 @@
 			</File>
 			<File
 				RelativePath=".\DialRemote.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PoserRemote.h"
 				>
 			</File>
 			<File
