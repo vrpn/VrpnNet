@@ -15,6 +15,7 @@ namespace Vrpn {
 
 	public ref class TextReceivedEventArgs: public System::EventArgs
 	{
+	public:
 		property System::DateTime Time;
 		property System::String^ String;
 		property Vrpn::TextSeverity Type;
@@ -58,7 +59,7 @@ namespace Vrpn {
 
 		void Initialize(System::String ^name, vrpn_Connection *lpConn);
 	};
-#if 0
+
 	public ref class TextReceiver: public IVrpnObject
 	{
 	public:
@@ -83,5 +84,4 @@ namespace Vrpn {
 		void onTextReceived(void *userData, const vrpn_TEXTCB info);
 		void Initialize(System::String ^name, vrpn_Connection *lpConn);
 	};
-#endif
 }
