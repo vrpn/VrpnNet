@@ -39,3 +39,18 @@ void VrpnUtils::CreateTimeval(System::DateTime time, struct timeval *tm)
 	tm->tv_sec = static_cast<long>(span.TotalSeconds);	
 	tm->tv_usec = static_cast<long>(ticks / 10);
 }
+
+void VrpnUtils::CreateQuat(Vrpn::Quaternion quat, double qArray[])
+{
+	qArray[Q_W] = quat.W;
+	qArray[Q_X] = quat.X;
+	qArray[Q_Y] = quat.Y;
+	qArray[Q_Z] = quat.Z;
+}
+
+void VrpnUtils::CreateVector(Vrpn::Vector3 vec, double vArray[])
+{
+	vArray[0] = vec.X;
+	vArray[1] = vec.Y;
+	vArray[2] = vec.Z;
+}
