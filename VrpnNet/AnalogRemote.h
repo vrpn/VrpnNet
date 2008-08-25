@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 #include "vrpn_Analog.h"
 
 #include "BaseTypes.h"

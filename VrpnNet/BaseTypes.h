@@ -7,6 +7,16 @@ namespace Vrpn {
 	{
 	};
 
+	[System::Flags]
+	public enum class ServiceClass
+	{
+		Reliable = (1 << 0),
+		FixedLatency = (1 << 1),
+		LowLatency = (1 << 2),
+		FixedThroughput = (1 << 3),
+		HighThroughput = (1 << 4)
+	};
+
 	ref class Connection;
 
 	public interface class IVrpnObject
@@ -51,6 +61,7 @@ namespace Vrpn {
 		static System::DateTime ConvertTimeval(struct timeval tm);
 		static Vrpn::Vector3 ConvertVector(const double vec[3]);
 		static Vrpn::Quaternion ConvertQuat(const double quat[4]);
+		static void CreateTimeval(System::DateTime time, struct timeval *tm);
 	
 	private:
 		VrpnUtils();

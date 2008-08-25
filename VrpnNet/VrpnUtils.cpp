@@ -26,3 +26,16 @@ Quaternion VrpnUtils::ConvertQuat(const double quat[4])
 {
 	return Quaternion(quat[Q_X], quat[Q_Y], quat[Q_Z], quat[Q_W]);
 }
+
+void VrpnUtils::CreateTimeval(System::DateTime time, struct timeval *tm)
+{
+	DateTime epoch = DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind::Utc);
+
+	TimeSpan span = time.ToUniversalTime().Subtract(epoch);
+
+	__int64 ticks = span.Ticks;
+	ticks = ticks % 10000000; // Strip seconds from 100ns ticks
+
+	tm->tv_sec = static_cast<long>(span.TotalSeconds);	
+	tm->tv_usec = static_cast<long>(ticks / 10);
+}
