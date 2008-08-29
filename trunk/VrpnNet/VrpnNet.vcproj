@@ -214,6 +214,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ForceDeviceRemote.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PoserRemote.cpp"
 				>
 			</File>
@@ -289,6 +293,10 @@
 			</File>
 			<File
 				RelativePath=".\DialRemote.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ForceDeviceRemote.h"
 				>
 			</File>
 			<File
