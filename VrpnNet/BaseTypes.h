@@ -63,6 +63,7 @@ namespace Vrpn {
 		static Vrpn::Quaternion ConvertQuat(const double quat[4]);
 		static void CreateTimeval(System::DateTime time, struct timeval *tm);
 		static void CreateVector(Vrpn::Vector3 vec, double vArray[]);
+		static void CreateVector(Vrpn::Vector3 vec, float vArray[]);
 		static void CreateQuat(Vrpn::Quaternion quat, double qArray[]);
 	
 	private:

@@ -54,3 +54,10 @@ void VrpnUtils::CreateVector(Vrpn::Vector3 vec, double vArray[])
 	vArray[1] = vec.Y;
 	vArray[2] = vec.Z;
 }
+
+void VrpnUtils::CreateVector(Vrpn::Vector3 vec, float vArray[])
+{
+	vArray[0] = static_cast<float>(vec.X);
+	vArray[1] = static_cast<float>(vec.Y);
+	vArray[2] = static_cast<float>(vec.Z);
+}
