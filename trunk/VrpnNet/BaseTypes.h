@@ -1,8 +1,40 @@
+// BaseTypes.h: Interface description for common VRPN utility types
+//
+// Copyright (c) 2008 Chris VanderKnyff
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 #pragma once
 
 #include "vrpn_Connection.h"
 
 namespace Vrpn {
+	/// <summary>
+	/// Represents an internal VRPN exception.
+	/// </summary>
+	/// <remarks>
+	/// This exception is thrown when VRPN methods return generic error codes.
+	/// Because of VRPN's error-handling design (i.e., everything goes to stderr
+	/// or text messages), encountering this exception usually means something
+	/// has gone seriously wrong. The user should check the console (or wherever
+	/// stderr goes) for error details.
+	/// </remarks>
 	public ref class VrpnException: public System::Exception
 	{
 	};
@@ -41,6 +73,8 @@ namespace Vrpn {
 		property System::Double X;
 		property System::Double Y;
 		property System::Double Z;
+
+		virtual System::String^ ToString() override;
 	};
 
 	[System::Diagnostics::DebuggerDisplay("Quaternion ({X}, {Y}, {Z}, {W})")]
@@ -53,6 +87,8 @@ namespace Vrpn {
 		property System::Double Y;
 		property System::Double Z;
 		property System::Double W;
+
+		virtual System::String^ ToString() override;
 	};
 
 	ref class VrpnUtils
