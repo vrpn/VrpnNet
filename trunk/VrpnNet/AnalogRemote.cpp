@@ -97,13 +97,5 @@ void AnalogRemote::onAnalogChange(void *, const vrpn_ANALOGCB info)
 	::memcpy_s(clrChannels, info.num_channel * sizeof(double), 
 		info.channel, vrpn_CHANNEL_MAX * sizeof(double));
 
-	/*
-	// TODO: Investigate possibility of doing this with memcpy
-	for (int i = 0; i < info.num_channel; i++)
-	{
-		e->Channels[i] = info.channel[i];
-	}
-	*/
-
 	AnalogChanged(this, e);
 }
