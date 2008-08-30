@@ -1,3 +1,25 @@
+// AssemblyInfo.cpp: VrpnNet assembly metadata.
+//
+// Copyright (c) 2008 Chris VanderKnyff
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 #include "stdafx.h"
 
 using namespace System;
@@ -29,15 +51,19 @@ using namespace System::Security::Permissions;
 // Minor Version is the typical increment-per-release counter.
 //     Minor version changes should be backwards compatible.
 //
-// Build Number is the VRPN minor release we linked against.
-//     VRPN 7.17, for instance, is build 17. Should we go to VRPN 8.0
-//     while this project still lives, the major version will change
-//     (due to the breaking VRPN change) and the build will go to (in
-//     this case) zero.
+// Build Number is used for minor bugfix releases. If nothing has
+//     actually changed under the hood other than, for example,
+//     a fixed API call, it probably warrants a new build number
+//     instead of a new minor version.
+//
+//     Rebuilding against a newer VRPN version is a build increment
+//     if no other changes are made to the code.
 //
 // Revision is set to *, so it changes with every build.
+//
+// 
 
-[assembly:AssemblyVersionAttribute("0.6.17.*")];
+[assembly:AssemblyVersionAttribute("0.9.0.*")];
 
 [assembly:ComVisible(false)];
 
