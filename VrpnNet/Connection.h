@@ -33,7 +33,6 @@ namespace Vrpn {
 		static Vrpn::Connection^ GetConnectionByName(
 			System::String ^name);
 
-		/* coming soon:
 		static Vrpn::Connection^ GetConnectionByName(
 			System::String ^name,
 			System::String ^localInLogfileName,
@@ -41,17 +40,16 @@ namespace Vrpn {
 			System::String ^remoteInLogfileName,
 			System::String ^remoteOutLogfileName,
 			System::String ^nicIpAddress,
-			System::Boolean ^forceReopen);
-		*/
+			System::Boolean forceReopen);
 
 		static Vrpn::Connection^ FromPointer(
-			vrpn_Connection *pointer);
+			::vrpn_Connection *pointer);
 		
 		~Connection();
 
 		void Update();
 
-		vrpn_Connection* ToPointer();
+		::vrpn_Connection* ToPointer();
 
 		property System::Boolean DoingOkay
 		{
@@ -64,8 +62,8 @@ namespace Vrpn {
 		}
 
 	private:
-		Connection(vrpn_Connection *connection);
+		Connection(::vrpn_Connection *connection);
 
-		vrpn_Connection *m_connection;
+		::vrpn_Connection *m_connection;
 	};
 }
