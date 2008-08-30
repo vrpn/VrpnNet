@@ -63,7 +63,7 @@ using namespace System::Security::Permissions;
 //
 // 
 
-[assembly:AssemblyVersionAttribute("0.9.0.*")];
+[assembly:AssemblyVersionAttribute("1.0.0.*")];
 
 [assembly:ComVisible(false)];
 
