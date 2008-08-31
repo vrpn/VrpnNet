@@ -95,7 +95,7 @@ void AnalogRemote::onAnalogChange(void *, const vrpn_ANALOGCB info)
 	pin_ptr<double> clrChannels = &e->Channels[0];
 
 	::memcpy_s(clrChannels, info.num_channel * sizeof(double), 
-		info.channel, vrpn_CHANNEL_MAX * sizeof(double));
+		info.channel, info.num_channel * sizeof(double));
 
 	AnalogChanged(this, e);
 }
