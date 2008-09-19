@@ -1,0 +1,41 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VrpnNet", "VrpnNet\VrpnNet-VC9.vcproj", "{DA2400F6-ED19-47D4-B10F-83297887AB54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintVals-VC9", "PrintVals\PrintVals-VC9.csproj", "{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Debug|Win32.Build.0 = Debug|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Release|Any CPU.ActiveCfg = Release|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Release|Win32.ActiveCfg = Release|Win32
+		{DA2400F6-ED19-47D4-B10F-83297887AB54}.Release|Win32.Build.0 = Release|Win32
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}.Release|Win32.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
