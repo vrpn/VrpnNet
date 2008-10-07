@@ -39,3 +39,17 @@ String^ Vector3::ToString()
 {
 	return String::Format("[{0}, {1}, {2}]", X, Y, Z);
 }
+
+double Vector3::Magnitude::get()
+{
+	return Math::Sqrt(X * X + Y * Y + Z * Z);
+}
+
+void Vector3::Normalize()
+{
+	double length = Magnitude;
+
+	X /= length;
+	Y /= length;
+	Z /= length;
+}

@@ -308,6 +308,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Quaternion.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Stdafx.h"
 				>
 			</File>

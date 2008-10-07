@@ -41,16 +41,16 @@ namespace Vrpn {
 		}
 
 		System::Boolean RequestChannelChange(System::Int64 channel,
-			System::Double value);
+			double value);
 
 		System::Boolean RequestChannelChange(System::Int64 channel,
-			System::Double value, ServiceClass sc);
+			double value, ServiceClass sc);
 
 		System::Boolean RequestChannelChange(
-			cli::array<System::Double> ^channels);
+			cli::array<double> ^channels);
 
 		System::Boolean RequestChannelChange(
-			cli::array<System::Double> ^channels, ServiceClass sc);
+			cli::array<double> ^channels, ServiceClass sc);
 	
 	private:
 		::vrpn_Analog_Output_Remote *m_analogOut;

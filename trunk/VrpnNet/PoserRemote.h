@@ -53,12 +53,12 @@ namespace Vrpn {
 		void RequestPoseVelocity(System::DateTime time,
 			Vrpn::Vector3 velocity,
 			Vrpn::Quaternion quaternion,
-			System::Double interval);
+			double interval);
 
 		void RequestPoseVelocityRelative(System::DateTime time,
 			Vrpn::Vector3 velocityDelta,
 			Vrpn::Quaternion quaternion,
-			System::Double intervalDelta);
+			double intervalDelta);
 
 	private:
 		::vrpn_Poser_Remote *m_poser;
