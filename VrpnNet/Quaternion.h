@@ -1,4 +1,4 @@
-// DialRemote.h: Interface description for Vrpn.DialRemote
+// Quaternion.h: Interface description for Vrpn.Quaternion
 //
 // Copyright (c) 2008 Chris VanderKnyff
 // 
@@ -20,47 +20,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#pragma once
-
-#include "vrpn_Dial.h"
-#include "BaseTypes.h"
-#include "Connection.h"
+// Portions of the quaternion code are based on Quatlib, a public domain library
+// initially written by Warren Robinett and Richard Holloway.
 
 namespace Vrpn {
-	public ref class DialChangeEventArgs: public System::EventArgs
+	value class Vector3;
+
+	[System::Diagnostics::DebuggerDisplay("Quaternion ({X}, {Y}, {Z}, {W})")]
+	public value class Quaternion
 	{
 	public:
-		property System::DateTime Time;
-		property System::Int32 DialIndex;
-		property double Change;
+		Quaternion(double x, double y, double z, double w);
+
+		property double X;
+		property double Y;
+		property double Z;
+		property double W;
+
+		virtual System::String^ ToString() override;
+
+		static Quaternion FromAxisAngle(Vector3 axis, double angle);
+		
+		void ToAxisAngle([System::Runtime::InteropServices::Out] Vector3 %axis,
+			[System::Runtime::InteropServices::Out] double %angle);
+
+		void Normalize();
+
+		static Quaternion Exp(Quaternion quat);
+		static Quaternion Log(Quaternion quat);
+		static Quaternion Invert(Quaternion quat);
+		static Quaternion Conjugate(Quaternion quat);
+
+		static const double Tolerance = 1.0e-10;
 	};
 
-	public delegate void DialChangeEventHandler(System::Object ^sender,
-		DialChangeEventArgs ^e);
-
-	public ref class DialRemote: public Vrpn::IVrpnObject
-	{
-	public:
-		DialRemote(System::String ^name);
-		DialRemote(System::String ^name, Vrpn::Connection ^connection);
-		~DialRemote();
-
-		virtual void Update(); // from IVrpnObject
-		virtual Connection^ GetConnection(); // from IVrpnObject
-		property System::Boolean MuteWarnings // from IVrpnObject
-		{
-			virtual void set(System::Boolean);
-			virtual System::Boolean get();
-		}
-
-		event DialChangeEventHandler^ DialChanged;
-
-	private:
-		::vrpn_Dial_Remote *m_dial;
-
-		void Initialize(System::String ^name, vrpn_Connection *lpConn);
-		void onDialChange(void *userData, const vrpn_DIALCB info);
-
-		System::Runtime::InteropServices::GCHandle gc_callback;
-	};
 }

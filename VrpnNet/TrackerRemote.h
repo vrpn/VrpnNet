@@ -44,7 +44,7 @@ namespace Vrpn {
 		property System::Int32 Sensor;
 		property Vrpn::Vector3 Velocity;
 		property Vrpn::Quaternion VelocityQuat;
-		property System::Double VelocityQuatDeltaSeconds;
+		property double VelocityQuatDeltaSeconds;
 	};
 
 	public ref class TrackerAccelChangeEventArgs: public System::EventArgs
@@ -54,7 +54,7 @@ namespace Vrpn {
 		property System::Int32 Sensor;
 		property Vrpn::Vector3 Acceleration;
 		property Vrpn::Quaternion AccelerationQuat;
-		property System::Double AccelerationQuatDeltaSeconds;
+		property double AccelerationQuatDeltaSeconds;
 	};
 
 	public ref class TrackerToRoomEventArgs: public System::EventArgs
@@ -108,9 +108,9 @@ namespace Vrpn {
 		void RequestUnitToSensorXform();
 		void RequestWorkspaceBounds();
 
-		property System::Double UpdateRate
+		property double UpdateRate
 		{
-			void set(System::Double samplesPerSecond);
+			void set(double samplesPerSecond);
 		}
 
 		void ResetOrigin();

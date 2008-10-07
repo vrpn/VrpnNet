@@ -30,7 +30,7 @@ namespace Vrpn {
 	{
 	public:
 		property System::DateTime Time;
-		property cli::array<System::Double> ^Channels;
+		property cli::array<double> ^Channels;
 	};
 
 	public delegate void AnalogChangeEventHandler(System::Object ^sender,

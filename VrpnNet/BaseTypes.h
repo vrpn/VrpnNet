@@ -24,6 +24,8 @@
 
 #include "vrpn_Connection.h"
 
+#include "Quaternion.h"
+
 namespace Vrpn {
 	/// <summary>
 	/// Represents an internal VRPN exception.
@@ -68,27 +70,20 @@ namespace Vrpn {
 	public value class Vector3
 	{
 	public:
-		Vector3(System::Double x, System::Double y, System::Double z);
+		Vector3(double x, double y, double z);
 
-		property System::Double X;
-		property System::Double Y;
-		property System::Double Z;
-
-		virtual System::String^ ToString() override;
-	};
-
-	[System::Diagnostics::DebuggerDisplay("Quaternion ({X}, {Y}, {Z}, {W})")]
-	public value class Quaternion
-	{
-	public:
-		Quaternion(System::Double x, System::Double y, System::Double z, System::Double w);
-
-		property System::Double X;
-		property System::Double Y;
-		property System::Double Z;
-		property System::Double W;
+		property double X;
+		property double Y;
+		property double Z;
 
 		virtual System::String^ ToString() override;
+
+		property double Magnitude
+		{
+			double get();
+		}
+
+		void Normalize();
 	};
 
 	ref class VrpnUtils
