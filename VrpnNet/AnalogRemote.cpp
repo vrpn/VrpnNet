@@ -1,6 +1,6 @@
 // AnalogRemote.cpp: Implementation for Vrpn.AnalogRemote
 //
-// Copyright (c) 2008 Chris VanderKnyff
+// Copyright (c) 2008-2009 Chris VanderKnyff
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
