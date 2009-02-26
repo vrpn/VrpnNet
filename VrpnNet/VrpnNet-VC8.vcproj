@@ -220,6 +220,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MutexRemote.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MutexRemoteNative.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PoserRemote.cpp"
 				>
 			</File>
@@ -299,6 +307,14 @@
 			</File>
 			<File
 				RelativePath=".\ForceDeviceRemote.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MutexRemote.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MutexRemoteNative.h"
 				>
 			</File>
 			<File
