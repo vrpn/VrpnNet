@@ -1,6 +1,6 @@
 // Connection.cpp: Implementation for Vrpn.Connection
 //
-// Copyright (c) 2008 Chris VanderKnyff
+// Copyright (c) 2008-2009 Chris VanderKnyff
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ Connection::Connection(vrpn_Connection *connection)
 
 Connection::~Connection()
 {
-	delete m_connection;
+	m_connection->removeReference();
 }
 
 vrpn_Connection* Connection::ToPointer()
@@ -70,14 +70,13 @@ Connection^ Connection::GetConnectionByName(System::String ^name)
 	const char *cName = static_cast<const char *>(hName.ToPointer());
 
 	vrpn_Connection *conn = ::vrpn_get_connection_by_name(cName);
-	if (!conn)
-		throw gcnew VrpnException();
-
-	Connection ^retVal = gcnew Connection(conn);
 
 	Marshal::FreeHGlobal(hName);
 
-	return retVal;
+	if (!conn)
+		throw gcnew VrpnException();
+
+	return gcnew Connection(conn);
 }
 
 Connection^ Connection::GetConnectionByName(System::String ^name,
@@ -112,10 +111,6 @@ Connection^ Connection::GetConnectionByName(System::String ^name,
 	vrpn_Connection *cConn = ::vrpn_get_connection_by_name(cName,
 		cLocalLogIn, cLocalLogOut, cRemoteLogIn, cRemoteLogOut, 
 		cAddress, forceReopen);
-	if (!cConn)
-		throw gcnew VrpnException();
-
-	Connection ^retVal = gcnew Connection(cConn);
 
 	// FreeHGlobal is defined to be a no-op on zero (null) pointers
 	Marshal::FreeHGlobal(hName);
@@ -125,7 +120,94 @@ Connection^ Connection::GetConnectionByName(System::String ^name,
 	Marshal::FreeHGlobal(hRemoteLogOut);
 	Marshal::FreeHGlobal(hAddress);
 
-	return retVal;
+	if (!cConn)
+		throw gcnew VrpnException();
+
+	return gcnew Connection(cConn);
+}
+
+Connection^ Connection::CreateServerConnection(System::String ^name)
+{
+	return CreateServerConnection(name, nullptr, nullptr);
+}
+
+Connection^ Connection::CreateServerConnection(System::String ^name, 
+	System::String ^localInLogfileName, System::String ^localOutLogfileName)
+{
+	const char *cName, *cLocalLogIn, *cLocalLogOut;
+	IntPtr hName, hLocalLogIn, hLocalLogOut;
+
+	// Temporarily suppress "conditional expression is constant" warnings.
+	// We know that we're testing while(false) in the loop. It is expected.
+#ifdef _MSC_VER
+# pragma warning(push)
+# pragma warning(disable: 4127)
+#endif
+
+	VRPNNET_ALLOCSTRING(Name, name);
+	VRPNNET_ALLOCSTRING(LocalLogIn, localInLogfileName);
+	VRPNNET_ALLOCSTRING(LocalLogOut, localOutLogfileName);
+
+	// Restore normal warnings
+#ifdef _MSC_VER
+# pragma warning(pop)
+#endif
+
+	::vrpn_Connection *cConn = ::vrpn_create_server_connection(cName, cLocalLogIn, cLocalLogOut);
+
+	Marshal::FreeHGlobal(hName);
+	Marshal::FreeHGlobal(hLocalLogIn);
+	Marshal::FreeHGlobal(hLocalLogOut);
+
+	if (!cConn)
+		throw gcnew VrpnException();
+
+	return gcnew Connection(cConn);
+}
+
+Connection^ Connection::CreateServerConnection()
+{
+	return CreateServerConnection(DefaultListenPort);
+}
+
+Connection^ Connection::CreateServerConnection(System::Int32 port)
+{
+	return CreateServerConnection(port, nullptr, nullptr, nullptr);
+}
+
+Connection^ Connection::CreateServerConnection(System::Int32 port, 
+	System::String ^localInLogfileName, System::String ^localOutLogfileName, System::String ^nicName)
+{
+	const char *cLocalLogIn, *cLocalLogOut, *cNicName;
+	IntPtr hLocalLogIn, hLocalLogOut, hNicName;
+
+	// Temporarily suppress "conditional expression is constant" warnings.
+	// We know that we're testing while(false) in the loop. It is expected.
+#ifdef _MSC_VER
+# pragma warning(push)
+# pragma warning(disable: 4127)
+#endif
+
+	VRPNNET_ALLOCSTRING(LocalLogIn, localInLogfileName);
+	VRPNNET_ALLOCSTRING(LocalLogOut, localOutLogfileName);
+	VRPNNET_ALLOCSTRING(NicName, nicName);
+
+	// Restore normal warnings
+#ifdef _MSC_VER
+# pragma warning(pop)
+#endif
+
+	::vrpn_Connection *cConn = ::vrpn_create_server_connection(port, cLocalLogIn, 
+		cLocalLogOut, cNicName);
+
+	Marshal::FreeHGlobal(hLocalLogIn);
+	Marshal::FreeHGlobal(hLocalLogOut);
+	Marshal::FreeHGlobal(hNicName);
+
+	if (!cConn)
+		throw gcnew VrpnException();
+
+	return gcnew Connection(cConn);
 }
 
 Boolean Connection::DoingOkay::get()
