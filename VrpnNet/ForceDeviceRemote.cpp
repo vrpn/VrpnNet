@@ -23,15 +23,18 @@
 #include "stdafx.h"
 #include "ForceDeviceRemote.h"
 
+namespace Vrpn {
+	namespace Internal {
+		delegate void ForceChangeCallback(void *, const vrpn_FORCECB);
+		delegate void ForceSurfaceContactCallback(void *, const vrpn_FORCESCPCB);
+		delegate void ForceErrorCallback(void *, const vrpn_FORCEERRORCB);
+	}
+}
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace Vrpn;
-
-namespace {
-	delegate void ForceChangeCallback(void *, const vrpn_FORCECB);
-	delegate void ForceSurfaceContactCallback(void *, const vrpn_FORCESCPCB);
-	delegate void ForceErrorCallback(void *, const vrpn_FORCEERRORCB);
-}
+using namespace Vrpn::Internal;
 
 ForceDeviceRemote::ForceDeviceRemote(System::String ^name)
 {
@@ -43,13 +46,20 @@ ForceDeviceRemote::ForceDeviceRemote(System::String ^name, Vrpn::Connection ^con
 	Initialize(name, connection->ToPointer());
 }
 
-ForceDeviceRemote::~ForceDeviceRemote()
+ForceDeviceRemote::!ForceDeviceRemote()
 {
 	delete m_force;
 
 	gc_forceScp.Free();
 	gc_forceChange.Free();
 	gc_error.Free();
+
+	m_disposed = true;
+}
+
+ForceDeviceRemote::~ForceDeviceRemote()
+{
+	this->!ForceDeviceRemote();
 }
 
 void ForceDeviceRemote::Initialize(System::String ^name, ::vrpn_Connection *lpConn)
@@ -88,25 +98,31 @@ void ForceDeviceRemote::Initialize(System::String ^name, ::vrpn_Connection *lpCo
 
 	if (m_force->register_error_handler(0, pErrorCallback))
 		throw gcnew VrpnException();
+
+	m_disposed = false;
 }
 
 void ForceDeviceRemote::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->mainloop();
 }
 
 Connection^ ForceDeviceRemote::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_force->connectionPtr());
 }
 
 void ForceDeviceRemote::MuteWarnings::set(Boolean shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->shutup = shutUp;
 }
 
 Boolean ForceDeviceRemote::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_force->shutup;
 }
 
@@ -121,21 +137,25 @@ Boolean ForceDeviceRemote::SpringsAreForceFields::get()
 
 void ForceDeviceRemote::SendSurface()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->sendSurface();
 }
 
 void ForceDeviceRemote::StartSurface()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->startSurface();
 }
 
 void ForceDeviceRemote::StopSurface()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->stopSurface();
 }
 
 void ForceDeviceRemote::SetVertex(int vertexNumber, Vrpn::Vector3 point)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setVertex(vertexNumber, 
 		static_cast<float>(point.X), 
 		static_cast<float>(point.Y),
@@ -144,6 +164,7 @@ void ForceDeviceRemote::SetVertex(int vertexNumber, Vrpn::Vector3 point)
 
 void ForceDeviceRemote::SetNormal(int normalNumber, Vrpn::Vector3 normal)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setNormal(normalNumber, 
 		static_cast<float>(normal.X), 
 		static_cast<float>(normal.Y),
@@ -152,27 +173,32 @@ void ForceDeviceRemote::SetNormal(int normalNumber, Vrpn::Vector3 normal)
 
 void ForceDeviceRemote::SetTriangle(int triangleNumber, int vertex1, int vertex2, int vertex3)
 {
+	CHECK_DISPOSAL_STATUS();
 	SetTriangle(triangleNumber, vertex1, vertex2, vertex3, -1, -1, -1);
 }
 
 void ForceDeviceRemote::SetTriangle(int triangleNumber, int vertex1, int vertex2, int vertex3, int normal1, int normal2, int normal3)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setTriangle(triangleNumber, vertex1, vertex2, vertex3,
 		normal1, normal2, normal3);
 }
 
 void ForceDeviceRemote::RemoveTriangle(int triangleNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->removeTriangle(triangleNumber);
 }
 
 void ForceDeviceRemote::UpdateTrimeshChanges()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->updateTrimeshChanges();
 }
 
 void ForceDeviceRemote::SetTrimeshTransform(cli::array<float> ^matrix)
 {
+	CHECK_DISPOSAL_STATUS();
 	if (matrix->GetLength(0) != 16)
 		throw gcnew System::ArgumentException("Value must be a 16-element homogenous transform matrix in row-major order.", "matrix");
 
@@ -183,26 +209,31 @@ void ForceDeviceRemote::SetTrimeshTransform(cli::array<float> ^matrix)
 
 void ForceDeviceRemote::ClearTrimesh()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->clearTrimesh();
 }
 
 void ForceDeviceRemote::AddObject(int objectNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	AddObject(objectNumber, -1);
 }
 
 void ForceDeviceRemote::AddObject(int objectNumber, int parentNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->addObject(objectNumber, parentNumber);
 }
 
 void ForceDeviceRemote::AddObjectExScene(int objectNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->addObjectExScene(objectNumber);
 }
 
 void ForceDeviceRemote::SetObjectVertex(int objectNumber, int vertexNumber, Vrpn::Vector3 point)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setObjectVertex(objectNumber, vertexNumber,
 		static_cast<float>(point.X),
 		static_cast<float>(point.Y),
@@ -211,6 +242,7 @@ void ForceDeviceRemote::SetObjectVertex(int objectNumber, int vertexNumber, Vrpn
 
 void ForceDeviceRemote::SetObjectNormal(int objectNumber, int normalNumber, Vrpn::Vector3 normal)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setObjectNormal(objectNumber, normalNumber,
 		static_cast<float>(normal.X),
 		static_cast<float>(normal.Y),
@@ -219,28 +251,33 @@ void ForceDeviceRemote::SetObjectNormal(int objectNumber, int normalNumber, Vrpn
 
 void ForceDeviceRemote::SetObjectTriangle(int objectNumber, int triangleNumber, int vertex1, int vertex2, int vertex3)
 {
+	CHECK_DISPOSAL_STATUS();
 	SetObjectTriangle(objectNumber, triangleNumber, vertex1, vertex2, vertex3,
 		-1, -1, -1);
 }
 
 void ForceDeviceRemote::SetObjectTriangle(int objectNumber, int triangleNumber, int vertex1, int vertex2, int vertex3, int normal1, int normal2, int normal3)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setObjectTriangle(objectNumber, triangleNumber, vertex1, vertex2, vertex3,
 		normal1, normal2, normal3);
 }
 
 void ForceDeviceRemote::RemoveObjectTriangle(int objectNumber, int triangleNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->removeObjectTriangle(objectNumber, triangleNumber);
 }
 
 void ForceDeviceRemote::UpdateObjectTrimeshChanges(int objectNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->updateObjectTrimeshChanges(objectNumber);
 }
 
 void ForceDeviceRemote::SetObjectTrimeshTransform(int objectNumber, cli::array<float> ^matrix)
 {
+	CHECK_DISPOSAL_STATUS();
 	if (matrix->GetLength(0) != 16)
 		throw gcnew System::ArgumentException("Value must be a 16-element homogenous transform matrix in row-major order.", "matrix");
 
@@ -252,6 +289,7 @@ void ForceDeviceRemote::SetObjectTrimeshTransform(int objectNumber, cli::array<f
 
 void ForceDeviceRemote::SetObjectPosition(int objectNumber, Vrpn::Vector3 position)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cPos[3];
 	VrpnUtils::CreateVector(position, cPos);
 
@@ -260,6 +298,7 @@ void ForceDeviceRemote::SetObjectPosition(int objectNumber, Vrpn::Vector3 positi
 
 void ForceDeviceRemote::SetObjectOrientation(int objectNumber, Vrpn::Vector3 axis, float angle)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cAxis[3];
 	VrpnUtils::CreateVector(axis, cAxis);
 
@@ -268,6 +307,7 @@ void ForceDeviceRemote::SetObjectOrientation(int objectNumber, Vrpn::Vector3 axi
 
 void ForceDeviceRemote::SetObjectScale(int objectNumber, Vrpn::Vector3 scale)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cScale[3];
 	VrpnUtils::CreateVector(scale, cScale);
 
@@ -276,21 +316,25 @@ void ForceDeviceRemote::SetObjectScale(int objectNumber, Vrpn::Vector3 scale)
 
 void ForceDeviceRemote::RemoveObject(int objectNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->removeObject(objectNumber);
 }
 
 void ForceDeviceRemote::ClearObjectTrimesh(int objectNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->clearObjectTrimesh(objectNumber);
 }
 
 void ForceDeviceRemote::MoveToParent(int objectNumber, int parentNumber)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->moveToParent(objectNumber, parentNumber);
 }
 
 void ForceDeviceRemote::SetHapticOrigin(Vrpn::Vector3 position, Vrpn::Vector3 axis, float angle)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cPos[3], cAxis[3];
 	VrpnUtils::CreateVector(position, cPos);
 	VrpnUtils::CreateVector(axis, cAxis);
@@ -300,11 +344,13 @@ void ForceDeviceRemote::SetHapticOrigin(Vrpn::Vector3 position, Vrpn::Vector3 ax
 
 void ForceDeviceRemote::SetHapticScale(float scale)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setHapticScale(scale);
 }
 
 void ForceDeviceRemote::SetSceneOrigin(Vrpn::Vector3 position, Vrpn::Vector3 axis, float angle)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cPos[3], cAxis[3];
 	VrpnUtils::CreateVector(position, cPos);
 	VrpnUtils::CreateVector(axis, cAxis);
@@ -314,16 +360,19 @@ void ForceDeviceRemote::SetSceneOrigin(Vrpn::Vector3 position, Vrpn::Vector3 axi
 
 int ForceDeviceRemote::GetNewObjectId()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_force->getNewObjectID();
 }
 
 void ForceDeviceRemote::SetObjectIsTouchable(int objectNumber, bool isTouchable)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setObjectIsTouchable(objectNumber, isTouchable);
 }
 
 void ForceDeviceRemote::SetMeshPacking(Vrpn::ForceDeviceMeshPacking api)
 {
+	CHECK_DISPOSAL_STATUS();
 	switch (api)
 	{
 	case ForceDeviceMeshPacking::Hcollide:
@@ -341,16 +390,19 @@ void ForceDeviceRemote::SetMeshPacking(Vrpn::ForceDeviceMeshPacking api)
 
 void ForceDeviceRemote::EnableConstraints(bool enable)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->enableConstraint(enable);
 }
 
 void ForceDeviceRemote::SetConstraintMode(ConstraintGeometry mode)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setConstraintMode(static_cast<::vrpn_ForceDevice::ConstraintGeometry>(mode));
 }
 
 void ForceDeviceRemote::SetConstraintPoint(Vrpn::Vector3 point)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cPoint[3];
 	VrpnUtils::CreateVector(point, cPoint);
 	m_force->setConstraintPoint(cPoint);
@@ -358,6 +410,7 @@ void ForceDeviceRemote::SetConstraintPoint(Vrpn::Vector3 point)
 
 void ForceDeviceRemote::SetConstraintLinePoint(Vrpn::Vector3 point)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cPoint[3];
 	VrpnUtils::CreateVector(point, cPoint);
 	m_force->setConstraintLinePoint(cPoint);
@@ -365,6 +418,7 @@ void ForceDeviceRemote::SetConstraintLinePoint(Vrpn::Vector3 point)
 
 void ForceDeviceRemote::SetConstraintLineDirection(Vrpn::Vector3 direction)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cDir[3];
 	VrpnUtils::CreateVector(direction, cDir);
 	m_force->setConstraintLineDirection(cDir);
@@ -372,6 +426,7 @@ void ForceDeviceRemote::SetConstraintLineDirection(Vrpn::Vector3 direction)
 
 void ForceDeviceRemote::SetConstraintPlanePoint(Vrpn::Vector3 point)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cPoint[3];
 	VrpnUtils::CreateVector(point, cPoint);
 	m_force->setConstraintPlanePoint(cPoint);
@@ -379,6 +434,7 @@ void ForceDeviceRemote::SetConstraintPlanePoint(Vrpn::Vector3 point)
 
 void ForceDeviceRemote::SetConstraintPlaneNormal(Vrpn::Vector3 normal)
 {
+	CHECK_DISPOSAL_STATUS();
 	float cNormal[3];
 	VrpnUtils::CreateVector(normal, cNormal);
 	m_force->setConstraintPlaneNormal(cNormal);
@@ -386,16 +442,19 @@ void ForceDeviceRemote::SetConstraintPlaneNormal(Vrpn::Vector3 normal)
 
 void ForceDeviceRemote::SetConstraintKSpring(float k)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->setConstraintKSpring(k);
 }
 
 void ForceDeviceRemote::SendForceField()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->sendForceField();
 }
 
 void ForceDeviceRemote::SendForceField(Vrpn::Vector3 origin, Vrpn::Vector3 force, cli::array<float,2> ^jacobian, float radius)
 {
+	CHECK_DISPOSAL_STATUS();
 	if (jacobian->GetLength(0) != 3 || jacobian->GetLength(1) != 3)
 		throw gcnew ArgumentException("jacobian", "Value must be a 3*3 matrix.");
 
@@ -413,16 +472,19 @@ void ForceDeviceRemote::SendForceField(Vrpn::Vector3 origin, Vrpn::Vector3 force
 
 void ForceDeviceRemote::StopForceField()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->stopForceField();
 }
 
 void ForceDeviceRemote::StartEffect()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->startEffect();
 }
 
 void ForceDeviceRemote::StopEffect()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_force->stopEffect();
 }
 

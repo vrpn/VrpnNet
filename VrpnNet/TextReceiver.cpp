@@ -23,13 +23,16 @@
 #include "stdafx.h"
 #include "Text.h"
 
+namespace Vrpn {
+	namespace Internal {
+		delegate void TextReceivedCallback(void *userData, const vrpn_TEXTCB info);
+	}
+}
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace Vrpn;
-
-namespace {
-	delegate void TextReceivedCallback(void *userData, const vrpn_TEXTCB info);
-}
+using namespace Vrpn::Internal;
 
 TextReceiver::TextReceiver(String ^name)
 {
@@ -57,32 +60,43 @@ void TextReceiver::Initialize(System::String ^name, vrpn_Connection *lpConn)
 		static_cast<vrpn_TEXTHANDLER>(pTextReceipt.ToPointer());
 
 	m_receiver->register_message_handler(0, pCallbackFunc);
+	m_disposed = false;
 }
 
-TextReceiver::~TextReceiver()
+TextReceiver::!TextReceiver()
 {
 	delete m_receiver;
 
 	gc_callback.Free();
+	m_disposed = true;
+}
+
+TextReceiver::~TextReceiver()
+{
+	this->!TextReceiver();
 }
 
 void TextReceiver::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_receiver->mainloop();
 }
 
 void TextReceiver::MuteWarnings::set(Boolean shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_receiver->shutup = shutUp;
 }
 
 Boolean TextReceiver::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_receiver->shutup;
 }
 
 Connection^ TextReceiver::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_receiver->connectionPtr());
 }
 

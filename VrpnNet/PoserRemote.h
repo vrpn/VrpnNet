@@ -33,6 +33,7 @@ namespace Vrpn {
 		PoserRemote(System::String ^name);
 		PoserRemote(System::String ^name, Vrpn::Connection ^connection);
 		~PoserRemote();
+		!PoserRemote();
 
 		virtual void Update();
 		virtual Vrpn::Connection^ GetConnection();
@@ -62,6 +63,7 @@ namespace Vrpn {
 
 	private:
 		::vrpn_Poser_Remote *m_poser;
+		System::Boolean m_disposed;
 
 		void Initialize(System::String ^name, vrpn_Connection *lpConn);
 	};

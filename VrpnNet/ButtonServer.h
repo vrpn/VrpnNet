@@ -33,6 +33,7 @@ namespace Vrpn {
 		ButtonServer(System::String ^name, Vrpn::Connection ^connection);
 		ButtonServer(System::String ^name, Vrpn::Connection ^connection, System::Int32 numButtons);
 		~ButtonServer();
+		!ButtonServer();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Vrpn::Connection ^GetConnection(); // from IVrpnObject
@@ -69,6 +70,7 @@ namespace Vrpn {
 	private:
 		::vrpn_Button_Server *m_server;
 		ButtonCollection ^m_buttons;
+		System::Boolean m_disposed;
 
 		void Initialize(System::String ^name, Vrpn::Connection ^connection, System::Int32 numButtons);
 	};

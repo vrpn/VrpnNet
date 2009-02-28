@@ -52,11 +52,19 @@ void AnalogServer::Initialize(System::String ^name, Vrpn::Connection ^connection
 	m_channels = gcnew cli::array<AnalogServerChannel ^>(numChannels);
 	for (int i = 0; i < numChannels; i++)
 		m_channels[i] = gcnew AnalogServerChannel();
+
+	m_disposed = false;
+}
+
+AnalogServer::!AnalogServer()
+{
+	delete m_server;
+	m_disposed = true;
 }
 
 AnalogServer::~AnalogServer()
 {
-	delete m_server;
+	this->!AnalogServer();
 }
 
 void AnalogServer::UpdateChannels()
@@ -75,36 +83,43 @@ void AnalogServer::UpdateChannels()
 
 void AnalogServer::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_server->mainloop();
 }
 
 Connection^ AnalogServer::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_server->connectionPtr());
 }
 
 void AnalogServer::MuteWarnings::set(bool shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_server->shutup = shutUp;
 }
 
 bool AnalogServer::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_server->shutup;
 }
 
 void AnalogServer::Report()
 {
+	CHECK_DISPOSAL_STATUS();
 	Report(ServiceClass::LowLatency, DateTime::Now);
 }
 
 void AnalogServer::ReportChanges()
 {
+	CHECK_DISPOSAL_STATUS();
 	Report(ServiceClass::LowLatency, DateTime::Now);
 }
 
 void AnalogServer::Report(Vrpn::ServiceClass classOfService, System::DateTime time)
 {
+	CHECK_DISPOSAL_STATUS();
 	timeval tm;
 	VrpnUtils::CreateTimeval(time, &tm);
 
@@ -114,6 +129,7 @@ void AnalogServer::Report(Vrpn::ServiceClass classOfService, System::DateTime ti
 
 void AnalogServer::ReportChanges(Vrpn::ServiceClass classOfService, System::DateTime time)
 {
+	CHECK_DISPOSAL_STATUS();
 	timeval tm;
 	VrpnUtils::CreateTimeval(time, &tm);
 

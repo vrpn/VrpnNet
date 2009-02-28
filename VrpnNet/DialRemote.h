@@ -44,6 +44,7 @@ namespace Vrpn {
 		DialRemote(System::String ^name);
 		DialRemote(System::String ^name, Vrpn::Connection ^connection);
 		~DialRemote();
+		!DialRemote();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -57,6 +58,7 @@ namespace Vrpn {
 
 	private:
 		::vrpn_Dial_Remote *m_dial;
+		System::Boolean m_disposed;
 
 		void Initialize(System::String ^name, vrpn_Connection *lpConn);
 		void onDialChange(void *userData, const vrpn_DIALCB info);

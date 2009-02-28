@@ -47,6 +47,8 @@ bool ButtonServer::ButtonCollection::default::get(int index)
 
 void ButtonServer::ButtonCollection::default::set(int index, bool state)
 {
+	if (m_parent->m_disposed)
+		throw gcnew ObjectDisposedException("VRPN Object");
 	m_parent->m_server->set_button(index, state ? 1 : 0);
 	m_array[index] = state;
 }
@@ -73,36 +75,46 @@ void ButtonServer::Initialize(System::String ^name, Vrpn::Connection ^connection
 	Marshal::FreeHGlobal(hName);
 
 	m_buttons = gcnew ButtonCollection(this, numButtons);
+	m_disposed = false;
+}
+
+ButtonServer::!ButtonServer()
+{
+	delete m_server;
+	m_buttons = nullptr;
 }
 
 ButtonServer::~ButtonServer()
 {
-	delete m_server;
-	m_server = 0;
-	m_buttons = nullptr;
+	this->!ButtonServer();
 }
 
 Connection ^ButtonServer::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_server->connectionPtr());
 }
 
 bool ButtonServer::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_server->shutup;
 }
 
 void ButtonServer::MuteWarnings::set(bool shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_server->shutup = shutUp;
 }
 
 void ButtonServer::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_server->mainloop();
 }
 
 ButtonServer::ButtonCollection ^ButtonServer::Buttons::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_buttons;
 }

@@ -23,13 +23,16 @@
 #include "stdafx.h"
 #include "AnalogRemote.h"
 
+namespace Vrpn {
+	namespace Internal {
+		delegate void AnalogChangeCallback(void *userData, const vrpn_ANALOGCB info);
+	}
+}
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace Vrpn;
-
-namespace {
-	delegate void AnalogChangeCallback(void *userData, const vrpn_ANALOGCB info);
-}
+using namespace Vrpn::Internal;
 
 AnalogRemote::AnalogRemote(String ^name)
 {
@@ -57,32 +60,44 @@ void AnalogRemote::Initialize(System::String ^name, vrpn_Connection *lpConn)
 		static_cast<vrpn_ANALOGCHANGEHANDLER>(pAnalogChange.ToPointer());
 
 	m_analog->register_change_handler(0, pCallbackFunc);
+	
+	m_disposed = false;
 }
 
 AnalogRemote::~AnalogRemote()
 {
+	this->!AnalogRemote();
+}
+
+AnalogRemote::!AnalogRemote()
+{
 	delete m_analog;
 
 	gc_callback.Free();
+	m_disposed = true;
 }
 
 void AnalogRemote::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_analog->mainloop();
 }
 
 void AnalogRemote::MuteWarnings::set(Boolean shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_analog->shutup = shutUp;
 }
 
 Boolean AnalogRemote::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_analog->shutup;
 }
 
 Connection^ AnalogRemote::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_analog->connectionPtr());
 }
 

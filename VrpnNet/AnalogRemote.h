@@ -42,6 +42,7 @@ namespace Vrpn {
 		AnalogRemote(System::String ^name);
 		AnalogRemote(System::String ^name, Vrpn::Connection ^connection);
 		~AnalogRemote();
+		!AnalogRemote();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -55,6 +56,7 @@ namespace Vrpn {
 
 	private:
 		::vrpn_Analog_Remote *m_analog;
+		System::Boolean m_disposed;
 
 		void Initialize(System::String ^name, vrpn_Connection *lpConn);
 		void onAnalogChange(void *userData, const vrpn_ANALOGCB info);

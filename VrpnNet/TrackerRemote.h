@@ -95,6 +95,7 @@ namespace Vrpn {
 		TrackerRemote(System::String ^name);
 		TrackerRemote(System::String ^name, Vrpn::Connection ^connection);
 		~TrackerRemote();
+		!TrackerRemote();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -124,6 +125,7 @@ namespace Vrpn {
 
 	private:
 		::vrpn_Tracker_Remote *m_tracker;
+		System::Boolean m_disposed;
 
 		void RegisterHandlers();
 

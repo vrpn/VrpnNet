@@ -87,6 +87,7 @@ namespace Vrpn {
 		ForceDeviceRemote(System::String ^name);
 		ForceDeviceRemote(System::String ^name, Vrpn::Connection ^connection);
 		~ForceDeviceRemote();
+		!ForceDeviceRemote();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -171,6 +172,7 @@ namespace Vrpn {
 
 	private:
 		::vrpn_ForceDevice_Remote *m_force;
+		System::Boolean m_disposed;
 
 		void Initialize(System::String ^name, ::vrpn_Connection *lpConn);
 		void onSurfaceContact(void *userData, const ::vrpn_FORCESCPCB info);

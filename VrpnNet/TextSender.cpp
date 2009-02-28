@@ -37,9 +37,15 @@ TextSender::TextSender(System::String ^name, Vrpn::Connection ^connection)
 	Initialize(name, connection->ToPointer());
 }
 
-TextSender::~TextSender()
+TextSender::!TextSender()
 {
 	delete m_sender;
+	m_disposed = true;
+}
+
+TextSender::~TextSender()
+{
+	this->!TextSender();
 }
 
 void TextSender::Initialize(System::String ^name, vrpn_Connection *lpConn)
@@ -50,25 +56,31 @@ void TextSender::Initialize(System::String ^name, vrpn_Connection *lpConn)
 	m_sender = new ::vrpn_Text_Sender(ansiName, lpConn);
 
 	Marshal::FreeHGlobal(hAnsiName);
+
+	m_disposed = false;
 }
 
 void TextSender::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_sender->mainloop();
 }
 
 void TextSender::MuteWarnings::set(Boolean shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_sender->shutup = shutUp;
 }
 
 Boolean TextSender::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_sender->shutup;
 }
 
 Connection^ TextSender::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_sender->connectionPtr());
 }
 
@@ -89,6 +101,7 @@ Int32 TextSender::SendMessage(System::String ^message, Vrpn::TextSeverity type, 
 
 Int32 TextSender::SendMessage(System::String ^message, Vrpn::TextSeverity type, unsigned int level, System::DateTime time)
 {
+	CHECK_DISPOSAL_STATUS();
 	IntPtr hAnsiMessage = Marshal::StringToHGlobalAnsi(message);
 
 	const char *ansiMessage = static_cast<const char *>(hAnsiMessage.ToPointer());

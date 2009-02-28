@@ -37,9 +37,15 @@ PoserRemote::PoserRemote(System::String ^name, Vrpn::Connection ^connection)
 	Initialize(name, connection->ToPointer());
 }
 
-PoserRemote::~PoserRemote()
+PoserRemote::!PoserRemote()
 {
 	delete m_poser;
+	m_disposed = true;
+}
+
+PoserRemote::~PoserRemote()
+{
+	this->!PoserRemote();
 }
 
 void PoserRemote::Initialize(System::String ^name, vrpn_Connection *lpConn)
@@ -50,30 +56,37 @@ void PoserRemote::Initialize(System::String ^name, vrpn_Connection *lpConn)
 	m_poser = new ::vrpn_Poser_Remote(ansiName, lpConn);
 
 	Marshal::FreeHGlobal(hAnsiName);
+
+	m_disposed = false;
 }
 
 void PoserRemote::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_poser->mainloop();
 }
 
 Connection^ PoserRemote::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_poser->connectionPtr());
 }
 
 void PoserRemote::MuteWarnings::set(Boolean shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_poser->shutup = shutUp;
 }
 
 Boolean PoserRemote::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_poser->shutup;
 }
 
 void PoserRemote::RequestPose(System::DateTime time, Vrpn::Vector3 position, Vrpn::Quaternion quaternion)
 {
+	CHECK_DISPOSAL_STATUS();
 	struct timeval cTime = {0, 0};
 	VrpnUtils::CreateTimeval(time, &cTime);
 
@@ -88,6 +101,7 @@ void PoserRemote::RequestPose(System::DateTime time, Vrpn::Vector3 position, Vrp
 
 void PoserRemote::RequestPoseRelative(System::DateTime time, Vrpn::Vector3 positionDelta, Vrpn::Quaternion quaternion)
 {
+	CHECK_DISPOSAL_STATUS();
 	struct timeval cTime = {0, 0};
 	VrpnUtils::CreateTimeval(time, &cTime);
 
@@ -102,6 +116,7 @@ void PoserRemote::RequestPoseRelative(System::DateTime time, Vrpn::Vector3 posit
 
 void PoserRemote::RequestPoseVelocity(System::DateTime time, Vrpn::Vector3 velocity, Vrpn::Quaternion quaternion, double interval)
 {
+	CHECK_DISPOSAL_STATUS();
 	struct timeval cTime = {0, 0};
 	VrpnUtils::CreateTimeval(time, &cTime);
 
@@ -116,6 +131,7 @@ void PoserRemote::RequestPoseVelocity(System::DateTime time, Vrpn::Vector3 veloc
 
 void PoserRemote::RequestPoseVelocityRelative(System::DateTime time, Vrpn::Vector3 velocityDelta, Vrpn::Quaternion quaternion, double intervalDelta)
 {
+	CHECK_DISPOSAL_STATUS();
 	struct timeval cTime = {0, 0};
 	VrpnUtils::CreateTimeval(time, &cTime);
 

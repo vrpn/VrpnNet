@@ -23,13 +23,16 @@
 #include "stdafx.h"
 #include "DialRemote.h"
 
+namespace Vrpn {
+	namespace Internal {
+		delegate void DialChangeCallback(void *userData, const vrpn_DIALCB info);
+	}
+}
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace Vrpn;
-
-namespace {
-	delegate void DialChangeCallback(void *userData, const vrpn_DIALCB info);
-}
+using namespace Vrpn::Internal;
 
 DialRemote::DialRemote(String ^name)
 {
@@ -57,32 +60,43 @@ void DialRemote::Initialize(System::String ^name, vrpn_Connection *lpConn)
 		static_cast<vrpn_DIALCHANGEHANDLER>(pDialChange.ToPointer());
 
 	m_dial->register_change_handler(0, pCallbackFunc);
+	m_disposed = false;
 }
 
-DialRemote::~DialRemote()
+DialRemote::!DialRemote()
 {
 	delete m_dial;
 
 	gc_callback.Free();
+	m_disposed = true;
+}
+
+DialRemote::~DialRemote()
+{
+	this->!DialRemote();
 }
 
 void DialRemote::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_dial->mainloop();
 }
 
 void DialRemote::MuteWarnings::set(Boolean shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_dial->shutup = shutUp;
 }
 
 Boolean DialRemote::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_dial->shutup;
 }
 
 Connection^ DialRemote::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_dial->connectionPtr());
 }
 

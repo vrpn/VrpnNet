@@ -35,21 +35,30 @@ MutexServer::MutexServer(System::String ^name, Vrpn::Connection ^connection)
 	m_server = new ::vrpn_Mutex_Server(cName, connection->ToPointer());
 	m_connection = connection;
 	Marshal::FreeHGlobal(hName);
+
+	m_disposed = false;
 }
 
-MutexServer::~MutexServer()
+MutexServer::!MutexServer()
 {
 	delete m_server;
 	m_server = 0;
 }
 
+MutexServer::~MutexServer()
+{
+	this->!MutexServer();
+}
+
 void MutexServer::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_server->mainloop();
 }
 
 Connection ^MutexServer::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_connection;
 }
 
