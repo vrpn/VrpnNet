@@ -218,6 +218,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ButtonServer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Connection.cpp"
 				>
 			</File>
@@ -317,6 +321,10 @@
 			</File>
 			<File
 				RelativePath=".\ButtonRemote.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ButtonServer.h"
 				>
 			</File>
 			<File
