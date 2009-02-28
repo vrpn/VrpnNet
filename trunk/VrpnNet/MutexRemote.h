@@ -33,6 +33,7 @@ namespace Vrpn {
 		MutexRemote(System::String ^name);
 		MutexRemote(System::String ^name, Vrpn::Connection ^connection);
 		~MutexRemote();
+		!MutexRemote();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -67,6 +68,7 @@ namespace Vrpn {
 
 	private:
 		Vrpn::Internal::MutexRemoteNative *m_mutex;
+		System::Boolean m_disposed;
 
 		void Initialize(System::String ^name, ::vrpn_Connection *lpConn);
 

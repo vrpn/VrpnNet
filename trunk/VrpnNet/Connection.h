@@ -67,6 +67,7 @@ namespace Vrpn {
 			::vrpn_Connection *pointer);
 		
 		~Connection();
+		!Connection();
 
 		void Update();
 
@@ -86,5 +87,6 @@ namespace Vrpn {
 		Connection(::vrpn_Connection *connection);
 
 		::vrpn_Connection *m_connection;
+		System::Boolean m_disposed;
 	};
 }

@@ -53,6 +53,7 @@ namespace Vrpn {
 		TextSender(System::String ^name);
 		TextSender(System::String ^name, Vrpn::Connection ^connection);
 		~TextSender();
+		!TextSender();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -78,6 +79,7 @@ namespace Vrpn {
 
 	private:
 		::vrpn_Text_Sender *m_sender;
+		System::Boolean m_disposed;
 
 		void Initialize(System::String ^name, vrpn_Connection *lpConn);
 	};
@@ -88,6 +90,7 @@ namespace Vrpn {
 		TextReceiver(System::String ^name);
 		TextReceiver(System::String ^name, Vrpn::Connection ^connection);
 		~TextReceiver();
+		!TextReceiver();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -101,6 +104,7 @@ namespace Vrpn {
 
 	private:
 		::vrpn_Text_Receiver *m_receiver;
+		System::Boolean m_disposed;
 		System::Runtime::InteropServices::GCHandle gc_callback;
 
 		void onTextReceived(void *userData, const vrpn_TEXTCB info);

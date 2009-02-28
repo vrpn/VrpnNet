@@ -39,7 +39,13 @@ AnalogOutputRemote::AnalogOutputRemote(String ^name, Connection ^c)
 
 AnalogOutputRemote::~AnalogOutputRemote()
 {
+	this->!AnalogOutputRemote();
+}
+
+AnalogOutputRemote::!AnalogOutputRemote()
+{
 	delete m_analogOut;
+	m_disposed = true;
 }
 
 void AnalogOutputRemote::Initialize(String ^name, vrpn_Connection *lpConn)
@@ -50,35 +56,43 @@ void AnalogOutputRemote::Initialize(String ^name, vrpn_Connection *lpConn)
 	m_analogOut = new ::vrpn_Analog_Output_Remote(ansiName, lpConn);
 
 	Marshal::FreeHGlobal(hAnsiName);
+
+	m_disposed = false;
 }
 
 void AnalogOutputRemote::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_analogOut->mainloop();
 }
 
 void AnalogOutputRemote::MuteWarnings::set(Boolean shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_analogOut->shutup = shutUp;
 }
 
 Boolean AnalogOutputRemote::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_analogOut->shutup;
 }
 
 Connection^ AnalogOutputRemote::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_analogOut->connectionPtr());
 }
 
 Boolean AnalogOutputRemote::RequestChannelChange(Int64 channel, Double value)
 {
+	CHECK_DISPOSAL_STATUS();
 	return RequestChannelChange(channel, value, ServiceClass::Reliable);
 }
 
 Boolean AnalogOutputRemote::RequestChannelChange(Int64 channel, Double value, ServiceClass sc)
 {
+	CHECK_DISPOSAL_STATUS();
 	if (channel > 0xFFFFFFFFUL)
 		throw gcnew ArgumentOutOfRangeException("channel", "Value must fit in a vrpn_uint32 type");
 
@@ -89,11 +103,13 @@ Boolean AnalogOutputRemote::RequestChannelChange(Int64 channel, Double value, Se
 
 Boolean AnalogOutputRemote::RequestChannelChange(array<Double> ^channels)
 {
+	CHECK_DISPOSAL_STATUS();
 	return RequestChannelChange(channels, ServiceClass::Reliable);
 }
 
 Boolean AnalogOutputRemote::RequestChannelChange(array<Double> ^channels, ServiceClass sc)
 {
+	CHECK_DISPOSAL_STATUS();
 	if (channels->LongLength > 0xFFFFFFFFUL)
 		throw gcnew ArgumentException(
 			"VRPN AnalogOutput class supports only 2^32-1 channels", "channels");

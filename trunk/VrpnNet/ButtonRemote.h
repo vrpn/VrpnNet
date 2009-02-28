@@ -45,6 +45,7 @@ namespace Vrpn {
 		ButtonRemote(System::String ^name);
 		ButtonRemote(System::String ^name, Vrpn::Connection ^connection);
 		~ButtonRemote();
+		!ButtonRemote();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -63,5 +64,6 @@ namespace Vrpn {
 		void onButtonChange(void *userData, const vrpn_BUTTONCB info);
 
 		System::Runtime::InteropServices::GCHandle gc_callback;
+		System::Boolean m_disposed;
 	};
 }

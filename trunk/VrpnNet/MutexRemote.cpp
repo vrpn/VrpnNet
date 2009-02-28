@@ -24,15 +24,17 @@
 #include "MutexRemote.h"
 #include "MutexRemoteNative.h"
 
+namespace Vrpn {
+	namespace Internal {
+		typedef void (*MutexCallback)(int);
+		delegate void MutexEventHandler(int event);
+	}
+}
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace Vrpn;
 using namespace Vrpn::Internal;
-
-namespace {
-	typedef void (*MutexCallback)(int);
-	delegate void MutexEventHandler(int event);
-}
 
 MutexRemote::MutexRemote(System::String ^name)
 {
@@ -57,17 +59,26 @@ void MutexRemote::Initialize(System::String ^name, vrpn_Connection *lpConn)
 	gc_vrpnCallback = GCHandle::Alloc(callback);
 	IntPtr pVrpnCallback = Marshal::GetFunctionPointerForDelegate(callback);
 	m_mutex->setCallback(static_cast<MutexDelegate>(pVrpnCallback.ToPointer()));
+
+	m_disposed = false;
 }
 
-MutexRemote::~MutexRemote()
+MutexRemote::!MutexRemote()
 {
 	delete m_mutex;
 
 	gc_vrpnCallback.Free();
+	m_disposed = true;
+}
+
+MutexRemote::~MutexRemote()
+{
+	this->!MutexRemote();
 }
 
 void MutexRemote::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_mutex->mainloop();
 }
 
@@ -83,31 +94,37 @@ Boolean MutexRemote::MuteWarnings::get()
 
 Connection^ MutexRemote::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_mutex->connectionPtr());
 }
 
 Boolean MutexRemote::Available::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_mutex->isAvailable() != 0;
 }
 
 Boolean MutexRemote::HeldLocally::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_mutex->isHeldLocally() != 0;
 }
 
 Boolean MutexRemote::HeldRemotely::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_mutex->isHeldRemotely() != 0;
 }
 
 void MutexRemote::Request()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_mutex->request();
 }
 
 void MutexRemote::Release()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_mutex->release();
 }
 

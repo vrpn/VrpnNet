@@ -24,4 +24,8 @@
 
 #pragma once
 
-// We don't have anything interesting in the precompiled headers yet.
+#define CHECK_DISPOSAL_STATUS() \
+	{ \
+		if (m_disposed) \
+			throw gcnew ObjectDisposedException("VRPN Object"); \
+	}

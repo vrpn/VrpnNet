@@ -31,6 +31,7 @@ namespace Vrpn {
 		AnalogOutputRemote(System::String ^name);
 		AnalogOutputRemote(System::String ^name, Vrpn::Connection ^connection);
 		~AnalogOutputRemote();
+		!AnalogOutputRemote();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -54,6 +55,7 @@ namespace Vrpn {
 	
 	private:
 		::vrpn_Analog_Output_Remote *m_analogOut;
+		System::Boolean m_disposed;
 		
 		void Initialize(System::String ^name, vrpn_Connection *lpConn);
 	};

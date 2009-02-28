@@ -32,6 +32,7 @@ namespace Vrpn {
 	public:
 		MutexServer(System::String ^name, Vrpn::Connection ^connection);
 		~MutexServer();
+		!MutexServer();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -44,5 +45,6 @@ namespace Vrpn {
 	private:
 		::vrpn_Mutex_Server *m_server;
 		Vrpn::Connection ^m_connection;
+		System::Boolean m_disposed;
 	};
 }

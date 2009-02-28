@@ -25,19 +25,21 @@
 #include "quat.h"
 #include "TrackerRemote.h"
 
+namespace Vrpn {
+	namespace Internal {
+		delegate void TrackerChangeCallback(void *userData, const vrpn_TRACKERCB info);
+		delegate void TrackerVelocityCallback(void *userData, const vrpn_TRACKERVELCB info);
+		delegate void TrackerAccelCallback(void *userData, const vrpn_TRACKERACCCB info);
+		delegate void TrackerToRoomCallback(void *userData, const vrpn_TRACKERTRACKER2ROOMCB info);
+		delegate void TrackerUnitToSensorCallback(void *userData, const vrpn_TRACKERUNIT2SENSORCB info);
+		delegate void TrackerWorkspaceCallback(void *userData, const vrpn_TRACKERWORKSPACECB info);
+	}
+}
+
 using namespace System;
 using namespace System::Runtime::InteropServices;
-
 using namespace Vrpn;
-
-namespace {
-	delegate void TrackerChangeCallback(void *userData, const vrpn_TRACKERCB info);
-	delegate void TrackerVelocityCallback(void *userData, const vrpn_TRACKERVELCB info);
-	delegate void TrackerAccelCallback(void *userData, const vrpn_TRACKERACCCB info);
-	delegate void TrackerToRoomCallback(void *userData, const vrpn_TRACKERTRACKER2ROOMCB info);
-	delegate void TrackerUnitToSensorCallback(void *userData, const vrpn_TRACKERUNIT2SENSORCB info);
-	delegate void TrackerWorkspaceCallback(void *userData, const vrpn_TRACKERWORKSPACECB info);
-}
+using namespace Vrpn::Internal;
 
 TrackerRemote::TrackerRemote(String ^name)
 {
@@ -49,6 +51,8 @@ TrackerRemote::TrackerRemote(String ^name)
 	Marshal::FreeHGlobal(hAnsiName);
 
 	RegisterHandlers();
+
+	m_disposed = false;
 }
 
 TrackerRemote::TrackerRemote(String ^name, Connection ^connection)
@@ -61,9 +65,11 @@ TrackerRemote::TrackerRemote(String ^name, Connection ^connection)
 	Marshal::FreeHGlobal(hAnsiName);
 
 	RegisterHandlers();
+
+	m_disposed = false;
 }
 
-TrackerRemote::~TrackerRemote()
+TrackerRemote::!TrackerRemote()
 {
 	delete m_tracker;
 
@@ -73,54 +79,70 @@ TrackerRemote::~TrackerRemote()
 	gc_t2rChange.Free();
 	gc_u2sChange.Free();
 	gc_boundsChange.Free();
+
+	m_disposed = true;
+}
+
+TrackerRemote::~TrackerRemote()
+{
+	this->!TrackerRemote();
 }
 
 void TrackerRemote::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_tracker->mainloop();
 }
 
 void TrackerRemote::MuteWarnings::set(Boolean shutUp)
 {
+	CHECK_DISPOSAL_STATUS();
 	m_tracker->shutup = shutUp;
 }
 
 Boolean TrackerRemote::MuteWarnings::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_tracker->shutup;
 }
 
 Connection^ TrackerRemote::GetConnection()
 {
+	CHECK_DISPOSAL_STATUS();
 	return Connection::FromPointer(m_tracker->connectionPtr());
 }
 
 void TrackerRemote::RequestTrackerToRoomXform()
 {
+	CHECK_DISPOSAL_STATUS();
 	if (m_tracker->request_t2r_xform())
 		throw gcnew VrpnException();
 }
 
 void TrackerRemote::RequestUnitToSensorXform()
 {
+	CHECK_DISPOSAL_STATUS();
 	if (m_tracker->request_u2s_xform())
 		throw gcnew VrpnException();
 }
 
 void TrackerRemote::RequestWorkspaceBounds()
 {
+	CHECK_DISPOSAL_STATUS();
 	if (m_tracker->request_workspace())
 		throw gcnew VrpnException();
 }
 
 void TrackerRemote::UpdateRate::set(Double samplesPerSecond)
 {
+	CHECK_DISPOSAL_STATUS();
 	if (m_tracker->set_update_rate(samplesPerSecond))
 		throw gcnew VrpnException();
 }
 
 void TrackerRemote::ResetOrigin()
 {
+	CHECK_DISPOSAL_STATUS();
 	if (m_tracker->reset_origin())
 		throw gcnew VrpnException();
 }

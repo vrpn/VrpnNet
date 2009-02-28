@@ -42,20 +42,29 @@ using namespace Vrpn;
 Connection::Connection(vrpn_Connection *connection)
 {
 	m_connection = connection;
+	m_disposed = false;
 }
 
 Connection::~Connection()
 {
+	this->!Connection();
+}
+
+Connection::!Connection()
+{
 	m_connection->removeReference();
+	m_disposed = true;
 }
 
 vrpn_Connection* Connection::ToPointer()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_connection;
 }
 
 void Connection::Update()
 {
+	CHECK_DISPOSAL_STATUS();
 	m_connection->mainloop();
 }
 
@@ -212,10 +221,12 @@ Connection^ Connection::CreateServerConnection(System::Int32 port,
 
 Boolean Connection::DoingOkay::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_connection->doing_okay() != 0;
 }
 
 Boolean Connection::Connected::get()
 {
+	CHECK_DISPOSAL_STATUS();
 	return m_connection->connected() != 0;
 }

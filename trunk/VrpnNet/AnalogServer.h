@@ -35,6 +35,7 @@ namespace Vrpn {
 		AnalogServer(System::String ^name, Vrpn::Connection ^connection);
 		AnalogServer(System::String ^name, Vrpn::Connection ^connection, System::Int32 numChannels);
 		~AnalogServer();
+		!AnalogServer();
 
 		virtual void Update(); // from IVrpnObject
 		virtual Connection^ GetConnection(); // from IVrpnObject
@@ -58,5 +59,6 @@ namespace Vrpn {
 
 		::vrpn_Analog_Server *m_server;
 		cli::array<AnalogServerChannel ^> ^m_channels;
+		System::Boolean m_disposed;
 	};
 }
