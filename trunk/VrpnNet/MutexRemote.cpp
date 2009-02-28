@@ -46,11 +46,6 @@ MutexRemote::MutexRemote(System::String ^name, Vrpn::Connection ^connection)
 
 void MutexRemote::Initialize(System::String ^name, vrpn_Connection *lpConn)
 {
-	/*
-	throw gcnew NotImplementedException(
-		"Mutex event handlers are currently incompatible with managed code.");
-	*/
-
 	IntPtr hAnsiName = Marshal::StringToHGlobalAnsi(name);
 
 	const char *ansiName = static_cast<const char *>(hAnsiName.ToPointer());

@@ -202,6 +202,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AnalogServer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\AnalogServerChannel.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\AssemblyInfo.cpp"
 				>
 			</File>
@@ -227,6 +235,10 @@
 			</File>
 			<File
 				RelativePath=".\MutexRemoteNative.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MutexServer.cpp"
 				>
 			</File>
 			<File
@@ -292,6 +304,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AnalogServer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\AnalogServerChannel.h"
+				>
+			</File>
+			<File
 				RelativePath=".\BaseTypes.h"
 				>
 			</File>
@@ -317,6 +337,10 @@
 			</File>
 			<File
 				RelativePath=".\MutexRemoteNative.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MutexServer.h"
 				>
 			</File>
 			<File
