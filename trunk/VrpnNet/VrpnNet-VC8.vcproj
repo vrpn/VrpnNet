@@ -284,6 +284,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TrackerServer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Vector3.cpp"
 				>
 			</File>
@@ -367,6 +371,10 @@
 			</File>
 			<File
 				RelativePath=".\TrackerRemote.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TrackerServer.h"
 				>
 			</File>
 		</Filter>
