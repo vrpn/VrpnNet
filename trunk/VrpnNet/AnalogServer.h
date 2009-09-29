@@ -45,6 +45,11 @@ namespace Vrpn {
 			virtual System::Boolean get();
 		}
 
+		property cli::array<AnalogServerChannel ^> ^Channels
+		{
+			cli::array<AnalogServerChannel ^> ^get();
+		}
+
 		void Report();
 		void Report(ServiceClass classOfService, System::DateTime time);
 

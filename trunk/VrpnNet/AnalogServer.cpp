@@ -136,3 +136,8 @@ void AnalogServer::ReportChanges(Vrpn::ServiceClass classOfService, System::Date
 	UpdateChannels();
 	m_server->report_changes(safe_cast<vrpn_uint32>(classOfService), tm);
 }
+
+cli::array<AnalogServerChannel ^> ^AnalogServer::Channels::get()
+{
+	return m_channels;
+}
