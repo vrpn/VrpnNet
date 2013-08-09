@@ -23,10 +23,10 @@
 #include "stdafx.h"
 
 #include "BaseTypes.h"
-#include "quat.h"
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
+using namespace System::Windows::Media::Media3D;
 
 using namespace Vrpn;
 
@@ -39,14 +39,14 @@ DateTime VrpnUtils::ConvertTimeval(struct timeval tm)
 	return epoch.AddSeconds(tm.tv_sec).AddTicks(tm.tv_usec * 10I64);
 }
 
-Vector3 VrpnUtils::ConvertVector(const double vec[3])
+Vector3D VrpnUtils::ConvertVector(const double vec[3])
 {
-	return Vector3(vec[0], vec[1], vec[2]);
+	return Vector3D(vec[0], vec[1], vec[2]);
 }
 
 Quaternion VrpnUtils::ConvertQuat(const double quat[4])
 {
-	return Quaternion(quat[Q_X], quat[Q_Y], quat[Q_Z], quat[Q_W]);
+	return Quaternion(quat[0], quat[1], quat[2], quat[3]);
 }
 
 void VrpnUtils::CreateTimeval(System::DateTime time, struct timeval *tm)
@@ -62,22 +62,22 @@ void VrpnUtils::CreateTimeval(System::DateTime time, struct timeval *tm)
 	tm->tv_usec = static_cast<long>(ticks / 10);
 }
 
-void VrpnUtils::CreateQuat(Vrpn::Quaternion quat, double qArray[])
+void VrpnUtils::CreateQuat(Quaternion quat, double qArray[])
 {
-	qArray[Q_W] = quat.W;
-	qArray[Q_X] = quat.X;
-	qArray[Q_Y] = quat.Y;
-	qArray[Q_Z] = quat.Z;
+	qArray[0] = quat.W;
+	qArray[1] = quat.X;
+	qArray[2] = quat.Y;
+	qArray[3] = quat.Z;
 }
 
-void VrpnUtils::CreateVector(Vrpn::Vector3 vec, double vArray[])
+void VrpnUtils::CreateVector(Vector3D vec, double vArray[])
 {
 	vArray[0] = vec.X;
 	vArray[1] = vec.Y;
 	vArray[2] = vec.Z;
 }
 
-void VrpnUtils::CreateVector(Vrpn::Vector3 vec, float vArray[])
+void VrpnUtils::CreateVector(Vector3D vec, float vArray[])
 {
 	vArray[0] = static_cast<float>(vec.X);
 	vArray[1] = static_cast<float>(vec.Y);

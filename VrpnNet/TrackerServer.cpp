@@ -25,6 +25,7 @@
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
+using namespace System::Windows::Media::Media3D;
 using namespace Vrpn;
 
 TrackerServer::TrackerServer(System::String ^name, Vrpn::Connection ^connection, int numSensors)
@@ -83,13 +84,13 @@ void TrackerServer::MuteWarnings::set(bool shutUp)
 }
 
 void TrackerServer::ReportPose(int sensor, System::DateTime time, 
-	Vrpn::Vector3 position, Vrpn::Quaternion quaternion)
+	Vector3D position, Quaternion quaternion)
 {
 	ReportPose(sensor, time, position, quaternion, ServiceClass::LowLatency);
 }
 
 void TrackerServer::ReportPose(int sensor, System::DateTime time, 
-	Vrpn::Vector3 position, Vrpn::Quaternion quaternion, Vrpn::ServiceClass classOfService)
+	Vector3D position, Quaternion quaternion, Vrpn::ServiceClass classOfService)
 {
 	CHECK_DISPOSAL_STATUS();
 
@@ -105,13 +106,13 @@ void TrackerServer::ReportPose(int sensor, System::DateTime time,
 }
 
 void TrackerServer::ReportPoseVelocity(int sensor, System::DateTime time, 
-	Vrpn::Vector3 position, Vrpn::Quaternion quaternion, double interval)
+	Vector3D position, Quaternion quaternion, double interval)
 {
 	ReportPoseVelocity(sensor, time, position, quaternion, interval, ServiceClass::LowLatency);
 }
 
 void TrackerServer::ReportPoseVelocity(int sensor, System::DateTime time, 
-	Vrpn::Vector3 position, Vrpn::Quaternion quaternion, double interval, Vrpn::ServiceClass classOfService)
+	Vector3D position, Quaternion quaternion, double interval, Vrpn::ServiceClass classOfService)
 {
 	CHECK_DISPOSAL_STATUS();
 
@@ -128,13 +129,13 @@ void TrackerServer::ReportPoseVelocity(int sensor, System::DateTime time,
 }
 
 void TrackerServer::ReportPoseAcceleration(int sensor, System::DateTime time, 
-	Vrpn::Vector3 position, Vrpn::Quaternion quaternion, double interval)
+	Vector3D position, Quaternion quaternion, double interval)
 {
 	ReportPoseAcceleration(sensor, time, position, quaternion, interval, ServiceClass::LowLatency);
 }
 
 void TrackerServer::ReportPoseAcceleration(int sensor, System::DateTime time, 
-	Vrpn::Vector3 position, Vrpn::Quaternion quaternion, double interval, Vrpn::ServiceClass classOfService)
+	Vector3D position, Quaternion quaternion, double interval, Vrpn::ServiceClass classOfService)
 {
 	CHECK_DISPOSAL_STATUS();
 

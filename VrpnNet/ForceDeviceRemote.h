@@ -54,15 +54,15 @@ namespace Vrpn {
 	{
 	public:
 		property System::DateTime Time;
-		property Vrpn::Vector3 Position;
-		property Vrpn::Quaternion Orientation;
+		property System::Windows::Media::Media3D::Vector3D Position;
+		property System::Windows::Media::Media3D::Quaternion Orientation;
 	};
 
 	public ref class ForceChangeEventArgs: public System::EventArgs
 	{
 	public:
 		property System::DateTime Time;
-		property Vrpn::Vector3 Force;
+		property System::Windows::Media::Media3D::Vector3D Force;
 	};
 
 	public ref class ForceErrorEventArgs: public System::EventArgs
@@ -106,8 +106,8 @@ namespace Vrpn {
 		void StartSurface();
 		void StopSurface();
 
-		void SetVertex(System::Int32 vertexNumber, Vrpn::Vector3 point);
-		void SetNormal(System::Int32 normalNumber, Vrpn::Vector3 normal);
+		void SetVertex(System::Int32 vertexNumber, System::Windows::Media::Media3D::Vector3D point);
+		void SetNormal(System::Int32 normalNumber, System::Windows::Media::Media3D::Vector3D normal);
 		void SetTriangle(System::Int32 triangleNumber, System::Int32 vertex1, 
 			System::Int32 vertex2, System::Int32 vertex3);
 		void SetTriangle(System::Int32 triangleNumber, System::Int32 vertex1, 
@@ -122,8 +122,8 @@ namespace Vrpn {
 		void AddObject(System::Int32 objectNumber);
 		void AddObject(System::Int32 objectNumber, System::Int32 parentNumber);
 		void AddObjectExScene(System::Int32 objectNumber);
-		void SetObjectVertex(System::Int32 objectNumber, System::Int32 vertexNumber, Vrpn::Vector3 point);
-		void SetObjectNormal(System::Int32 objectNumber, System::Int32 normalNumber, Vrpn::Vector3 normal);
+		void SetObjectVertex(System::Int32 objectNumber, System::Int32 vertexNumber, System::Windows::Media::Media3D::Vector3D point);
+		void SetObjectNormal(System::Int32 objectNumber, System::Int32 normalNumber, System::Windows::Media::Media3D::Vector3D normal);
 		void SetObjectTriangle(System::Int32 objectNumber, System::Int32 triangleNumber, 
 			System::Int32 vertex1, System::Int32 vertex2, System::Int32 vertex3);
 		void SetObjectTriangle(System::Int32 objectNumber, System::Int32 triangleNumber, 
@@ -133,16 +133,16 @@ namespace Vrpn {
 
 		void UpdateObjectTrimeshChanges(System::Int32 objectNumber);
 		void SetObjectTrimeshTransform(System::Int32 objectNumber, cli::array<System::Single> ^matrix);
-		void SetObjectPosition(System::Int32 objectNumber, Vrpn::Vector3 position);
-		void SetObjectOrientation(System::Int32 objectNumber, Vrpn::Vector3 axis, System::Single angle);
-		void SetObjectScale(System::Int32 objectNumber, Vrpn::Vector3 scale);
+		void SetObjectPosition(System::Int32 objectNumber, System::Windows::Media::Media3D::Vector3D position);
+		void SetObjectOrientation(System::Int32 objectNumber, System::Windows::Media::Media3D::Vector3D axis, System::Single angle);
+		void SetObjectScale(System::Int32 objectNumber, System::Windows::Media::Media3D::Vector3D scale);
 		void RemoveObject(System::Int32 objectNumber);
 		void ClearObjectTrimesh(System::Int32 objectNumber);
 
 		void MoveToParent(System::Int32 objectNumber, System::Int32 parentNumber);
-		void SetHapticOrigin(Vrpn::Vector3 position, Vrpn::Vector3 axis, System::Single angle);
+		void SetHapticOrigin(System::Windows::Media::Media3D::Vector3D position, System::Windows::Media::Media3D::Vector3D axis, System::Single angle);
 		void SetHapticScale(System::Single scale);
-		void SetSceneOrigin(Vrpn::Vector3 position, Vrpn::Vector3 axis, System::Single angle);
+		void SetSceneOrigin(System::Windows::Media::Media3D::Vector3D position, System::Windows::Media::Media3D::Vector3D axis, System::Single angle);
 		System::Int32 GetNewObjectId();
 		void SetObjectIsTouchable(System::Int32 objectNumber, System::Boolean isTouchable);
 
@@ -151,15 +151,15 @@ namespace Vrpn {
 
 		void EnableConstraints(System::Boolean enable);
 		void SetConstraintMode(Vrpn::ConstraintGeometry mode);
-		void SetConstraintPoint(Vrpn::Vector3 point);
-		void SetConstraintLinePoint(Vrpn::Vector3 point);
-		void SetConstraintLineDirection(Vrpn::Vector3 direction);
-		void SetConstraintPlanePoint(Vrpn::Vector3 point);
-		void SetConstraintPlaneNormal(Vrpn::Vector3 normal);
+		void SetConstraintPoint(System::Windows::Media::Media3D::Vector3D point);
+		void SetConstraintLinePoint(System::Windows::Media::Media3D::Vector3D point);
+		void SetConstraintLineDirection(System::Windows::Media::Media3D::Vector3D direction);
+		void SetConstraintPlanePoint(System::Windows::Media::Media3D::Vector3D point);
+		void SetConstraintPlaneNormal(System::Windows::Media::Media3D::Vector3D normal);
 		void SetConstraintKSpring(System::Single k);
 
 		void SendForceField();
-		void SendForceField(Vrpn::Vector3 origin, Vrpn::Vector3 force,
+		void SendForceField(System::Windows::Media::Media3D::Vector3D origin, System::Windows::Media::Media3D::Vector3D force,
 			cli::array<System::Single, 2> ^jacobian, System::Single radius);
 		void StopForceField();
 

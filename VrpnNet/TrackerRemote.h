@@ -33,8 +33,8 @@ namespace Vrpn {
 	public:
 		property System::DateTime Time;
 		property System::Int32 Sensor;
-		property Vrpn::Vector3 Position;
-		property Vrpn::Quaternion Orientation;
+		property System::Windows::Media::Media3D::Vector3D Position;
+		property System::Windows::Media::Media3D::Quaternion Orientation;
 	};
 
 	public ref class TrackerVelocityChangeEventArgs: public System::EventArgs
@@ -42,8 +42,8 @@ namespace Vrpn {
 	public:
 		property System::DateTime Time;
 		property System::Int32 Sensor;
-		property Vrpn::Vector3 Velocity;
-		property Vrpn::Quaternion VelocityQuat;
+		property System::Windows::Media::Media3D::Vector3D Velocity;
+		property System::Windows::Media::Media3D::Quaternion VelocityQuat;
 		property double VelocityQuatDeltaSeconds;
 	};
 
@@ -52,8 +52,8 @@ namespace Vrpn {
 	public:
 		property System::DateTime Time;
 		property System::Int32 Sensor;
-		property Vrpn::Vector3 Acceleration;
-		property Vrpn::Quaternion AccelerationQuat;
+		property System::Windows::Media::Media3D::Vector3D Acceleration;
+		property System::Windows::Media::Media3D::Quaternion AccelerationQuat;
 		property double AccelerationQuatDeltaSeconds;
 	};
 
@@ -61,8 +61,8 @@ namespace Vrpn {
 	{
 	public:
 		property System::DateTime Time;
-		property Vrpn::Vector3 Position;
-		property Vrpn::Quaternion Orientation;
+		property System::Windows::Media::Media3D::Vector3D Position;
+		property System::Windows::Media::Media3D::Quaternion Orientation;
 	};
 
 	public ref class TrackerUnitToSensorEventArgs: public System::EventArgs
@@ -70,16 +70,16 @@ namespace Vrpn {
 	public:
 		property System::DateTime Time;
 		property System::Int32 Sensor;
-		property Vrpn::Vector3 Position;
-		property Vrpn::Quaternion Orientation;
+		property System::Windows::Media::Media3D::Vector3D Position;
+		property System::Windows::Media::Media3D::Quaternion Orientation;
 	};
 
 	public ref class TrackerWorkspaceBoundsEventArgs: public System::EventArgs
 	{
 	public:
 		property System::DateTime Time;
-		property Vrpn::Vector3 WorkspaceMin;
-		property Vrpn::Vector3 WorkspaceMax;
+		property System::Windows::Media::Media3D::Vector3D WorkspaceMin;
+		property System::Windows::Media::Media3D::Vector3D WorkspaceMax;
 	};
 
 	public delegate void TrackerChangeEventHandler(System::Object ^sender, TrackerChangeEventArgs ^e);

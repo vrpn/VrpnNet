@@ -33,6 +33,7 @@ namespace Vrpn {
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
+using namespace System::Windows::Media::Media3D;
 using namespace Vrpn;
 using namespace Vrpn::Internal;
 
@@ -153,7 +154,7 @@ void ForceDeviceRemote::StopSurface()
 	m_force->stopSurface();
 }
 
-void ForceDeviceRemote::SetVertex(int vertexNumber, Vrpn::Vector3 point)
+void ForceDeviceRemote::SetVertex(int vertexNumber, Vector3D point)
 {
 	CHECK_DISPOSAL_STATUS();
 	m_force->setVertex(vertexNumber, 
@@ -162,7 +163,7 @@ void ForceDeviceRemote::SetVertex(int vertexNumber, Vrpn::Vector3 point)
 		static_cast<float>(point.Z));
 }
 
-void ForceDeviceRemote::SetNormal(int normalNumber, Vrpn::Vector3 normal)
+void ForceDeviceRemote::SetNormal(int normalNumber, Vector3D normal)
 {
 	CHECK_DISPOSAL_STATUS();
 	m_force->setNormal(normalNumber, 
@@ -231,7 +232,7 @@ void ForceDeviceRemote::AddObjectExScene(int objectNumber)
 	m_force->addObjectExScene(objectNumber);
 }
 
-void ForceDeviceRemote::SetObjectVertex(int objectNumber, int vertexNumber, Vrpn::Vector3 point)
+void ForceDeviceRemote::SetObjectVertex(int objectNumber, int vertexNumber, Vector3D point)
 {
 	CHECK_DISPOSAL_STATUS();
 	m_force->setObjectVertex(objectNumber, vertexNumber,
@@ -240,7 +241,7 @@ void ForceDeviceRemote::SetObjectVertex(int objectNumber, int vertexNumber, Vrpn
 		static_cast<float>(point.Z));
 }
 
-void ForceDeviceRemote::SetObjectNormal(int objectNumber, int normalNumber, Vrpn::Vector3 normal)
+void ForceDeviceRemote::SetObjectNormal(int objectNumber, int normalNumber, Vector3D normal)
 {
 	CHECK_DISPOSAL_STATUS();
 	m_force->setObjectNormal(objectNumber, normalNumber,
@@ -287,7 +288,7 @@ void ForceDeviceRemote::SetObjectTrimeshTransform(int objectNumber, cli::array<f
 		static_cast<::vrpn_float32 *>(homMatrix));
 }
 
-void ForceDeviceRemote::SetObjectPosition(int objectNumber, Vrpn::Vector3 position)
+void ForceDeviceRemote::SetObjectPosition(int objectNumber, Vector3D position)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cPos[3];
@@ -296,7 +297,7 @@ void ForceDeviceRemote::SetObjectPosition(int objectNumber, Vrpn::Vector3 positi
 	m_force->setObjectPosition(objectNumber, cPos);
 }
 
-void ForceDeviceRemote::SetObjectOrientation(int objectNumber, Vrpn::Vector3 axis, float angle)
+void ForceDeviceRemote::SetObjectOrientation(int objectNumber, Vector3D axis, float angle)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cAxis[3];
@@ -305,7 +306,7 @@ void ForceDeviceRemote::SetObjectOrientation(int objectNumber, Vrpn::Vector3 axi
 	m_force->setObjectOrientation(objectNumber, cAxis, angle);
 }
 
-void ForceDeviceRemote::SetObjectScale(int objectNumber, Vrpn::Vector3 scale)
+void ForceDeviceRemote::SetObjectScale(int objectNumber, Vector3D scale)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cScale[3];
@@ -332,7 +333,7 @@ void ForceDeviceRemote::MoveToParent(int objectNumber, int parentNumber)
 	m_force->moveToParent(objectNumber, parentNumber);
 }
 
-void ForceDeviceRemote::SetHapticOrigin(Vrpn::Vector3 position, Vrpn::Vector3 axis, float angle)
+void ForceDeviceRemote::SetHapticOrigin(Vector3D position, Vector3D axis, float angle)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cPos[3], cAxis[3];
@@ -348,7 +349,7 @@ void ForceDeviceRemote::SetHapticScale(float scale)
 	m_force->setHapticScale(scale);
 }
 
-void ForceDeviceRemote::SetSceneOrigin(Vrpn::Vector3 position, Vrpn::Vector3 axis, float angle)
+void ForceDeviceRemote::SetSceneOrigin(Vector3D position, Vector3D axis, float angle)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cPos[3], cAxis[3];
@@ -400,7 +401,7 @@ void ForceDeviceRemote::SetConstraintMode(ConstraintGeometry mode)
 	m_force->setConstraintMode(static_cast<::vrpn_ForceDevice::ConstraintGeometry>(mode));
 }
 
-void ForceDeviceRemote::SetConstraintPoint(Vrpn::Vector3 point)
+void ForceDeviceRemote::SetConstraintPoint(Vector3D point)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cPoint[3];
@@ -408,7 +409,7 @@ void ForceDeviceRemote::SetConstraintPoint(Vrpn::Vector3 point)
 	m_force->setConstraintPoint(cPoint);
 }
 
-void ForceDeviceRemote::SetConstraintLinePoint(Vrpn::Vector3 point)
+void ForceDeviceRemote::SetConstraintLinePoint(Vector3D point)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cPoint[3];
@@ -416,7 +417,7 @@ void ForceDeviceRemote::SetConstraintLinePoint(Vrpn::Vector3 point)
 	m_force->setConstraintLinePoint(cPoint);
 }
 
-void ForceDeviceRemote::SetConstraintLineDirection(Vrpn::Vector3 direction)
+void ForceDeviceRemote::SetConstraintLineDirection(Vector3D direction)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cDir[3];
@@ -424,7 +425,7 @@ void ForceDeviceRemote::SetConstraintLineDirection(Vrpn::Vector3 direction)
 	m_force->setConstraintLineDirection(cDir);
 }
 
-void ForceDeviceRemote::SetConstraintPlanePoint(Vrpn::Vector3 point)
+void ForceDeviceRemote::SetConstraintPlanePoint(Vector3D point)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cPoint[3];
@@ -432,7 +433,7 @@ void ForceDeviceRemote::SetConstraintPlanePoint(Vrpn::Vector3 point)
 	m_force->setConstraintPlanePoint(cPoint);
 }
 
-void ForceDeviceRemote::SetConstraintPlaneNormal(Vrpn::Vector3 normal)
+void ForceDeviceRemote::SetConstraintPlaneNormal(Vector3D normal)
 {
 	CHECK_DISPOSAL_STATUS();
 	float cNormal[3];
@@ -452,7 +453,7 @@ void ForceDeviceRemote::SendForceField()
 	m_force->sendForceField();
 }
 
-void ForceDeviceRemote::SendForceField(Vrpn::Vector3 origin, Vrpn::Vector3 force, cli::array<float,2> ^jacobian, float radius)
+void ForceDeviceRemote::SendForceField(Vector3D origin, Vector3D force, cli::array<float,2> ^jacobian, float radius)
 {
 	CHECK_DISPOSAL_STATUS();
 	if (jacobian->GetLength(0) != 3 || jacobian->GetLength(1) != 3)

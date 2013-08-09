@@ -24,8 +24,6 @@
 
 #include "vrpn_Connection.h"
 
-#include "Quaternion.h"
-
 namespace Vrpn {
 	/// <summary>
 	/// Represents an internal VRPN exception.
@@ -66,36 +64,16 @@ namespace Vrpn {
 		}
 	};
 
-	[System::Diagnostics::DebuggerDisplay("Vector3 ({X}, {Y}, {Z})")]
-	public value class Vector3
-	{
-	public:
-		Vector3(double x, double y, double z);
-
-		property double X;
-		property double Y;
-		property double Z;
-
-		virtual System::String^ ToString() override;
-
-		property double Magnitude
-		{
-			double get();
-		}
-
-		void Normalize();
-	};
-
 	ref class VrpnUtils
 	{
 	public:
 		static System::DateTime ConvertTimeval(struct timeval tm);
-		static Vrpn::Vector3 ConvertVector(const double vec[3]);
-		static Vrpn::Quaternion ConvertQuat(const double quat[4]);
+		static System::Windows::Media::Media3D::Vector3D ConvertVector(const double vec[3]);
+		static System::Windows::Media::Media3D::Quaternion ConvertQuat(const double quat[4]);
 		static void CreateTimeval(System::DateTime time, struct timeval *tm);
-		static void CreateVector(Vrpn::Vector3 vec, double vArray[]);
-		static void CreateVector(Vrpn::Vector3 vec, float vArray[]);
-		static void CreateQuat(Vrpn::Quaternion quat, double qArray[]);
+		static void CreateVector(System::Windows::Media::Media3D::Vector3D vec, double vArray[]);
+		static void CreateVector(System::Windows::Media::Media3D::Vector3D vec, float vArray[]);
+		static void CreateQuat(System::Windows::Media::Media3D::Quaternion quat, double qArray[]);
 	
 	private:
 		VrpnUtils();

@@ -25,6 +25,7 @@
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
+using namespace System::Windows::Media::Media3D;
 using namespace Vrpn;
 
 PoserRemote::PoserRemote(String ^name)
@@ -84,7 +85,7 @@ Boolean PoserRemote::MuteWarnings::get()
 	return m_poser->shutup;
 }
 
-void PoserRemote::RequestPose(System::DateTime time, Vrpn::Vector3 position, Vrpn::Quaternion quaternion)
+void PoserRemote::RequestPose(System::DateTime time, Vector3D position, Quaternion quaternion)
 {
 	CHECK_DISPOSAL_STATUS();
 	struct timeval cTime = {0, 0};
@@ -99,7 +100,7 @@ void PoserRemote::RequestPose(System::DateTime time, Vrpn::Vector3 position, Vrp
 		throw gcnew VrpnException();
 }
 
-void PoserRemote::RequestPoseRelative(System::DateTime time, Vrpn::Vector3 positionDelta, Vrpn::Quaternion quaternion)
+void PoserRemote::RequestPoseRelative(System::DateTime time, Vector3D positionDelta, Quaternion quaternion)
 {
 	CHECK_DISPOSAL_STATUS();
 	struct timeval cTime = {0, 0};
@@ -114,7 +115,7 @@ void PoserRemote::RequestPoseRelative(System::DateTime time, Vrpn::Vector3 posit
 		throw gcnew VrpnException();
 }
 
-void PoserRemote::RequestPoseVelocity(System::DateTime time, Vrpn::Vector3 velocity, Vrpn::Quaternion quaternion, double interval)
+void PoserRemote::RequestPoseVelocity(System::DateTime time, Vector3D velocity, Quaternion quaternion, double interval)
 {
 	CHECK_DISPOSAL_STATUS();
 	struct timeval cTime = {0, 0};
@@ -129,7 +130,7 @@ void PoserRemote::RequestPoseVelocity(System::DateTime time, Vrpn::Vector3 veloc
 		throw gcnew VrpnException();
 }
 
-void PoserRemote::RequestPoseVelocityRelative(System::DateTime time, Vrpn::Vector3 velocityDelta, Vrpn::Quaternion quaternion, double intervalDelta)
+void PoserRemote::RequestPoseVelocityRelative(System::DateTime time, Vector3D velocityDelta, Quaternion quaternion, double intervalDelta)
 {
 	CHECK_DISPOSAL_STATUS();
 	struct timeval cTime = {0, 0};

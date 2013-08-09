@@ -44,21 +44,21 @@ namespace Vrpn {
 		}
 
 		void RequestPose(System::DateTime time,
-			Vrpn::Vector3 position,
-			Vrpn::Quaternion quaternion);
+			System::Windows::Media::Media3D::Vector3D position,
+			System::Windows::Media::Media3D::Quaternion quaternion);
 
 		void RequestPoseRelative(System::DateTime time,
-			Vrpn::Vector3 positionDelta,
-			Vrpn::Quaternion quaternion);
+			System::Windows::Media::Media3D::Vector3D positionDelta,
+			System::Windows::Media::Media3D::Quaternion quaternion);
 
 		void RequestPoseVelocity(System::DateTime time,
-			Vrpn::Vector3 velocity,
-			Vrpn::Quaternion quaternion,
+			System::Windows::Media::Media3D::Vector3D velocity,
+			System::Windows::Media::Media3D::Quaternion quaternion,
 			double interval);
 
 		void RequestPoseVelocityRelative(System::DateTime time,
-			Vrpn::Vector3 velocityDelta,
-			Vrpn::Quaternion quaternion,
+			System::Windows::Media::Media3D::Vector3D velocityDelta,
+			System::Windows::Media::Media3D::Quaternion quaternion,
 			double intervalDelta);
 
 	private:
