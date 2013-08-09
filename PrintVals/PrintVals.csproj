@@ -98,12 +98,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VrpnNet\VrpnNet-VC9.vcxproj">
-      <Project>{DA2400F6-ED19-47D4-B10F-83297887AB54}</Project>
-      <Name>VrpnNet %28Visual Studio 2010%29</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -122,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VrpnNet\VrpnNet.vcxproj">
+      <Project>{c966bacf-8022-4e09-a7d5-6f112a1f1ffd}</Project>
+      <Name>VrpnNet %28Visual Studio 2010%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
