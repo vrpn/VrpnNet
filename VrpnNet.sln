@@ -1,8 +1,8 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VrpnNet", "VrpnNet\VrpnNet-VC9.vcproj", "{DA2400F6-ED19-47D4-B10F-83297887AB54}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VrpnNet", "VrpnNet\VrpnNet-VC9.vcxproj", "{DA2400F6-ED19-47D4-B10F-83297887AB54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintVals-VC9", "PrintVals\PrintVals-VC9.csproj", "{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintVals", "PrintVals\PrintVals.csproj", "{A22BEAC7-EB67-43FD-AC6C-9A9F28F7322E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
