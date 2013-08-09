@@ -48,8 +48,10 @@ void AnalogServerChannel::Value::set(double value)
 			m_value = (value - ZeroMin) / (ZeroMin - Minimum);
 		else if (value <= ZeroMax)
 			m_value = 0;
-		else
+		else if (value < Maximum)
 			m_value = (value - ZeroMax) / (Maximum - ZeroMax);
+		else
+			m_value = 1;
 	}
 	else
 	{
