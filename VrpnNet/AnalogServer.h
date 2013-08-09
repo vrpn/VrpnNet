@@ -56,6 +56,31 @@ namespace Vrpn {
 		void ReportChanges();
 		void ReportChanges(ServiceClass classOfService, System::DateTime time);
 
+		ref class AnalogChannelCollection
+		{
+		internal:
+			AnalogChannelCollection(AnalogServer ^parent, System::Int32 numChannels);
+
+		public:
+			property AnalogServerChannel^ default [System::Int32]
+			{
+				AnalogServerChannel^ get(System::Int32 index);
+				void set(System::Int32 index, AnalogServerChannel^ value);
+			}
+			property System::Int32 Length
+			{
+				System::Int32 get();
+			}
+		private:
+			cli::array<AnalogServerChannel^> ^m_array;
+			AnalogServer ^m_parent;
+		};
+
+		property AnalogChannelCollection ^AnalogChannels
+		{
+			AnalogChannelCollection ^get();
+		};
+
 		literal System::Int32 MaxChannels = vrpn_CHANNEL_MAX;	
 
 	private:
@@ -63,7 +88,7 @@ namespace Vrpn {
 		void UpdateChannels();
 
 		::vrpn_Analog_Server *m_server;
-		cli::array<AnalogServerChannel ^> ^m_channels;
+		AnalogChannelCollection ^m_channels;
 		System::Boolean m_disposed;
 	};
 }

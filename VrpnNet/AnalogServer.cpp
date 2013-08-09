@@ -28,6 +28,36 @@ using namespace System::Collections::Generic;
 using namespace System::Runtime::InteropServices;
 using namespace Vrpn;
 
+AnalogServer::AnalogChannelCollection::AnalogChannelCollection(Vrpn::AnalogServer ^parent, int numChannels)
+{
+	m_parent = parent;
+	m_array = gcnew cli::array<AnalogServerChannel^>(numChannels);
+
+	//Create all the channels (the constructor will put them into a known state)
+	for (int i = 0; i < numChannels; i++)
+	{
+		m_array[i] = gcnew AnalogServerChannel();
+	}
+}
+
+AnalogServerChannel^ AnalogServer::AnalogChannelCollection::default::get(int index)
+{
+	return m_array[index];
+}
+
+void AnalogServer::AnalogChannelCollection::default::set(int index, AnalogServerChannel^ value)
+{
+	if (m_parent->m_disposed)
+		throw gcnew ObjectDisposedException("VRPN Object");
+	m_array[index] = value;
+	//m_parent->ReportChanges();  //I am not sure if these should be reported automatically
+}
+
+int AnalogServer::AnalogChannelCollection::Length::get()
+{
+	return m_array->Length;
+}
+
 AnalogServer::AnalogServer(System::String ^name, Vrpn::Connection ^connection)
 {
 	Initialize(name, connection, MaxChannels);
@@ -49,9 +79,8 @@ void AnalogServer::Initialize(System::String ^name, Vrpn::Connection ^connection
 	m_server = new ::vrpn_Analog_Server(cName, connection->ToPointer(), numChannels);
 	Marshal::FreeHGlobal(hName);
 
-	m_channels = gcnew cli::array<AnalogServerChannel ^>(numChannels);
-	for (int i = 0; i < numChannels; i++)
-		m_channels[i] = gcnew AnalogServerChannel();
+	m_channels = gcnew AnalogChannelCollection(this, numChannels);
+	Report(); //Provide the initialized values to the client
 
 	m_disposed = false;
 }
@@ -59,6 +88,7 @@ void AnalogServer::Initialize(System::String ^name, Vrpn::Connection ^connection
 AnalogServer::!AnalogServer()
 {
 	delete m_server;
+	m_channels = nullptr;
 	m_disposed = true;
 }
 
@@ -137,6 +167,11 @@ void AnalogServer::ReportChanges(Vrpn::ServiceClass classOfService, System::Date
 	m_server->report_changes(safe_cast<vrpn_uint32>(classOfService), tm);
 }
 
+AnalogServer::AnalogChannelCollection ^AnalogServer::AnalogChannels::get()
+{
+	CHECK_DISPOSAL_STATUS();
+	return m_channels;
+}
 cli::array<AnalogServerChannel ^> ^AnalogServer::Channels::get()
 {
 	return m_channels;
