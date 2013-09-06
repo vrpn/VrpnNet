@@ -44,24 +44,24 @@ namespace Vrpn {
 		}
 
 		void ReportPose(System::Int32 sensor, System::DateTime time, 
-			System::Windows::Media::Media3D::Vector3D position, System::Windows::Media::Media3D::Quaternion quaternion);
+			System::Windows::Media::Media3D::Point3D position, System::Windows::Media::Media3D::Quaternion quaternion);
 
 		void ReportPose(System::Int32 sensor, System::DateTime time, 
-			System::Windows::Media::Media3D::Vector3D position, System::Windows::Media::Media3D::Quaternion quaternion,
+			System::Windows::Media::Media3D::Point3D position, System::Windows::Media::Media3D::Quaternion quaternion,
 			Vrpn::ServiceClass classOfService);
 
 		void ReportPoseVelocity(System::Int32 sensor, System::DateTime time, 
-			System::Windows::Media::Media3D::Vector3D position, System::Windows::Media::Media3D::Quaternion quaternion, System::Double interval);
+			System::Windows::Media::Media3D::Vector3D velocity, System::Windows::Media::Media3D::Quaternion quaternion, System::Double interval);
 
 		void ReportPoseVelocity(System::Int32 sensor, System::DateTime time, 
-			System::Windows::Media::Media3D::Vector3D position, System::Windows::Media::Media3D::Quaternion quaternion, System::Double interval,
+			System::Windows::Media::Media3D::Vector3D velocity, System::Windows::Media::Media3D::Quaternion quaternion, System::Double interval,
 			Vrpn::ServiceClass classOfService);
 
 		void ReportPoseAcceleration(System::Int32 sensor, System::DateTime time, 
-			System::Windows::Media::Media3D::Vector3D position, System::Windows::Media::Media3D::Quaternion quaternion, System::Double interval);
+			System::Windows::Media::Media3D::Vector3D acceleration, System::Windows::Media::Media3D::Quaternion quaternion, System::Double interval);
 
 		void ReportPoseAcceleration(System::Int32 sensor, System::DateTime time, 
-			System::Windows::Media::Media3D::Vector3D position, System::Windows::Media::Media3D::Quaternion quaternion, System::Double interval,
+			System::Windows::Media::Media3D::Vector3D acceleration, System::Windows::Media::Media3D::Quaternion quaternion, System::Double interval,
 			Vrpn::ServiceClass classOfService);
 
 	private:

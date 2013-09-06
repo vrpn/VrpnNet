@@ -70,6 +70,20 @@ void VrpnUtils::CreateQuat(Quaternion quat, double qArray[])
 	qArray[3] = quat.Z;
 }
 
+void VrpnUtils::CreatePoint(Point3D point, double vArray[])
+{
+	vArray[0] = point.X;
+	vArray[1] = point.Y;
+	vArray[2] = point.Z;
+}
+
+void VrpnUtils::CreatePoint(Point3D point, float vArray[])
+{
+	vArray[0] = static_cast<float>(point.X);
+	vArray[1] = static_cast<float>(point.Y);
+	vArray[2] = static_cast<float>(point.Z);
+}
+
 void VrpnUtils::CreateVector(Vector3D vec, double vArray[])
 {
 	vArray[0] = vec.X;

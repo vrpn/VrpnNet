@@ -71,6 +71,8 @@ namespace Vrpn {
 		static System::Windows::Media::Media3D::Vector3D ConvertVector(const double vec[3]);
 		static System::Windows::Media::Media3D::Quaternion ConvertQuat(const double quat[4]);
 		static void CreateTimeval(System::DateTime time, struct timeval *tm);
+		static void CreatePoint(System::Windows::Media::Media3D::Point3D point, double pArray[]);
+		static void CreatePoint(System::Windows::Media::Media3D::Point3D point, float pArray[]);
 		static void CreateVector(System::Windows::Media::Media3D::Vector3D vec, double vArray[]);
 		static void CreateVector(System::Windows::Media::Media3D::Vector3D vec, float vArray[]);
 		static void CreateQuat(System::Windows::Media::Media3D::Quaternion quat, double qArray[]);

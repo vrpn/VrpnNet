@@ -83,14 +83,12 @@ void TrackerServer::MuteWarnings::set(bool shutUp)
 	m_server->shutup = shutUp;
 }
 
-void TrackerServer::ReportPose(int sensor, System::DateTime time, 
-	Vector3D position, Quaternion quaternion)
+void TrackerServer::ReportPose(int sensor, System::DateTime time, Point3D position, Quaternion quaternion)
 {
 	ReportPose(sensor, time, position, quaternion, ServiceClass::LowLatency);
 }
 
-void TrackerServer::ReportPose(int sensor, System::DateTime time, 
-	Vector3D position, Quaternion quaternion, Vrpn::ServiceClass classOfService)
+void TrackerServer::ReportPose(int sensor, System::DateTime time, Point3D position, Quaternion quaternion, Vrpn::ServiceClass classOfService)
 {
 	CHECK_DISPOSAL_STATUS();
 
@@ -99,54 +97,48 @@ void TrackerServer::ReportPose(int sensor, System::DateTime time,
 	double quatArray[4];
 
 	VrpnUtils::CreateTimeval(time, &tm);
-	VrpnUtils::CreateVector(position, posArray);
+	VrpnUtils::CreatePoint(position, posArray);
 	VrpnUtils::CreateQuat(quaternion, quatArray);
 
 	m_server->report_pose(sensor, tm, posArray, quatArray, safe_cast<vrpn_uint32>(classOfService));
 }
 
-void TrackerServer::ReportPoseVelocity(int sensor, System::DateTime time, 
-	Vector3D position, Quaternion quaternion, double interval)
+void TrackerServer::ReportPoseVelocity(int sensor, System::DateTime time, Vector3D velocity, Quaternion quaternion, double interval)
 {
-	ReportPoseVelocity(sensor, time, position, quaternion, interval, ServiceClass::LowLatency);
+	ReportPoseVelocity(sensor, time, velocity, quaternion, interval, ServiceClass::LowLatency);
 }
 
-void TrackerServer::ReportPoseVelocity(int sensor, System::DateTime time, 
-	Vector3D position, Quaternion quaternion, double interval, Vrpn::ServiceClass classOfService)
+void TrackerServer::ReportPoseVelocity(int sensor, System::DateTime time, Vector3D velocity, Quaternion quaternion, double interval, Vrpn::ServiceClass classOfService)
 {
 	CHECK_DISPOSAL_STATUS();
 
 	timeval tm;
-	double posArray[3];
+	double velArray[3];
 	double quatArray[4];
 
 	VrpnUtils::CreateTimeval(time, &tm);
-	VrpnUtils::CreateVector(position, posArray);
+	VrpnUtils::CreateVector(velocity, velArray);
 	VrpnUtils::CreateQuat(quaternion, quatArray);
 
-	m_server->report_pose_velocity(sensor, tm, posArray, quatArray, 
-		interval, safe_cast<vrpn_uint32>(classOfService));
+	m_server->report_pose_velocity(sensor, tm, velArray, quatArray, interval, safe_cast<vrpn_uint32>(classOfService));
 }
 
-void TrackerServer::ReportPoseAcceleration(int sensor, System::DateTime time, 
-	Vector3D position, Quaternion quaternion, double interval)
+void TrackerServer::ReportPoseAcceleration(int sensor, System::DateTime time, Vector3D acceleration, Quaternion quaternion, double interval)
 {
-	ReportPoseAcceleration(sensor, time, position, quaternion, interval, ServiceClass::LowLatency);
+	ReportPoseAcceleration(sensor, time, acceleration, quaternion, interval, ServiceClass::LowLatency);
 }
 
-void TrackerServer::ReportPoseAcceleration(int sensor, System::DateTime time, 
-	Vector3D position, Quaternion quaternion, double interval, Vrpn::ServiceClass classOfService)
+void TrackerServer::ReportPoseAcceleration(int sensor, System::DateTime time, Vector3D acceleration, Quaternion quaternion, double interval, Vrpn::ServiceClass classOfService)
 {
 	CHECK_DISPOSAL_STATUS();
 
 	timeval tm;
-	double posArray[3];
+	double accelArray[3];
 	double quatArray[4];
 
 	VrpnUtils::CreateTimeval(time, &tm);
-	VrpnUtils::CreateVector(position, posArray);
+	VrpnUtils::CreateVector(acceleration, accelArray);
 	VrpnUtils::CreateQuat(quaternion, quatArray);
 
-	m_server->report_pose_acceleration(sensor, tm, posArray, quatArray, 
-		interval, safe_cast<vrpn_uint32>(classOfService));
+	m_server->report_pose_acceleration(sensor, tm, accelArray, quatArray, interval, safe_cast<vrpn_uint32>(classOfService));
 }
