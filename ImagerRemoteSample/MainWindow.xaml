@@ -1,0 +1,24 @@
+﻿<Window x:Class="ImagerRemoteSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Image Name="DisplayedImage" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
+        <GridSplitter Grid.Row="1" Background="DarkGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <TextBox Name="ConsoleTextBox" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" VerticalScrollBarVisibility="Visible"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Name="channelBindCheckBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Content="Use channel binding" Click="channelBindCheckBox_Click"/>
+            <Label Name="ServerNameLabel" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Window>

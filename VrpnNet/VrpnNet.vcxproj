@@ -91,20 +91,21 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\User Folders\Downloads\VRPN-snapshot-Visual-Studio-10\vrpn-install\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\User Folders\Downloads\VRPN-snapshot-Visual-Studio-10\vrpn-install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Desktop\VRPN Imager\VRPN %28Binaries%29\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Desktop\VRPN Imager\VRPN %28Binaries%29\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\User Folders\Downloads\VRPN-snapshot-Visual-Studio-10\vrpn-install\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\User Folders\Downloads\VRPN-snapshot-Visual-Studio-10\vrpn-install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10\vrpn-install\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10\vrpn-install\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\User Folders\Downloads\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\User Folders\Downloads\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\User Folders\Downloads\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\User Folders\Downloads\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,6 +117,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>vrpnserver.lib; quat.lib</AdditionalDependencies>
@@ -127,6 +129,9 @@
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <Xdcmake>
+      <DocumentLibraryDependencies>false</DocumentLibraryDependencies>
+    </Xdcmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -138,6 +143,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>vrpnserver.lib; quat.lib</AdditionalDependencies>
@@ -148,6 +154,9 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
     </Link>
+    <Xdcmake>
+      <DocumentLibraryDependencies>false</DocumentLibraryDependencies>
+    </Xdcmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -158,6 +167,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>vrpnserver.lib; quat.lib</AdditionalDependencies>
@@ -168,6 +178,9 @@
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <Xdcmake>
+      <DocumentLibraryDependencies>false</DocumentLibraryDependencies>
+    </Xdcmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -178,6 +191,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>vrpnserver.lib; quat.lib</AdditionalDependencies>
@@ -187,6 +201,9 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
     </Link>
+    <Xdcmake>
+      <DocumentLibraryDependencies>false</DocumentLibraryDependencies>
+    </Xdcmake>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -202,6 +219,7 @@
       <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnalogOutputRemote.cpp" />
@@ -214,6 +232,9 @@
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DialRemote.cpp" />
     <ClCompile Include="ForceDeviceRemote.cpp" />
+    <ClCompile Include="ImagerBase.cpp" />
+    <ClCompile Include="ImagerRemote.cpp" />
+    <ClCompile Include="ImagerServer.cpp" />
     <ClCompile Include="MutexRemote.cpp" />
     <ClCompile Include="MutexRemoteNative.cpp" />
     <ClCompile Include="MutexServer.cpp" />
@@ -241,6 +262,9 @@
     <ClInclude Include="Connection.h" />
     <ClInclude Include="DialRemote.h" />
     <ClInclude Include="ForceDeviceRemote.h" />
+    <ClInclude Include="ImagerBase.h" />
+    <ClInclude Include="ImagerRemote.h" />
+    <ClInclude Include="ImagerServer.h" />
     <ClInclude Include="MutexRemote.h" />
     <ClInclude Include="MutexRemoteNative.h" />
     <ClInclude Include="MutexServer.h" />

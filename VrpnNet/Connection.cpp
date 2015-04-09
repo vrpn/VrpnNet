@@ -68,6 +68,20 @@ void Connection::Update()
 	m_connection->mainloop();
 }
 
+//This is to limit the bandwidth used for the Imager, otherwise you can ignore it
+///<summary>
+///Limits the number of messages parsed by the connection in a single Update() call.  Can be ignored if the imager is not in use.
+///</summary>
+///<param name="messageLimit">The max number of messages the connection should handle on a given call to Update().  A value of 0 will turn off the message limit.</param>
+///<remarks>
+///The name comes from title sequence of "The Jetsons."
+///</remarks>
+void Connection::JaneStopThisCrazyThing(System::UInt32 messageLimit)
+{
+	CHECK_DISPOSAL_STATUS();
+	m_connection->Jane_stop_this_crazy_thing(messageLimit);
+}
+
 Connection^ Connection::FromPointer(vrpn_Connection *pointer)
 {
 	return gcnew Connection(pointer);

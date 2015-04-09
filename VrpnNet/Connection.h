@@ -70,6 +70,7 @@ namespace Vrpn {
 		!Connection();
 
 		void Update();
+		void JaneStopThisCrazyThing(System::UInt32 messageLimit);
 
 		::vrpn_Connection* ToPointer();
 
