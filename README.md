@@ -1,5 +1,5 @@
 # VrpnNet
-.NET bindings for VRPN - Changes beyond the last upstream release
+.NET bindings for [VRPN](http://vrpn.org)
 
 ## Projects
 - **VrpnNet** - The .Net library for using VRPN.  
