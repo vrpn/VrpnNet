@@ -64,10 +64,10 @@ void VrpnUtils::CreateTimeval(System::DateTime time, struct timeval *tm)
 
 void VrpnUtils::CreateQuat(Quaternion quat, double qArray[])
 {
-	qArray[0] = quat.W;
-	qArray[1] = quat.X;
-	qArray[2] = quat.Y;
-	qArray[3] = quat.Z;
+	qArray[0] = quat.X;
+	qArray[1] = quat.Y;
+	qArray[2] = quat.Z;
+	qArray[3] = quat.W;
 }
 
 void VrpnUtils::CreatePoint(Point3D point, double vArray[])

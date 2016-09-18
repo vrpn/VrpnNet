@@ -91,21 +91,21 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Desktop\VRPN Imager\VRPN %28Binaries%29\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Desktop\VRPN Imager\VRPN %28Binaries%29\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Desktop\VRPN v7.32 Builds\include_clean;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Desktop\VRPN v7.32 Builds\x86\Debug\lib\quat;D:\Desktop\VRPN v7.32 Builds\x86\Debug\lib\vrpn_server;D:\Desktop\VRPN v7.32 Builds\x86\Debug\lib\vrpn;D:\Desktop\VRPN v7.32 Builds\x86\Debug\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10\vrpn-install\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10\vrpn-install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Desktop\VRPN v7.32 Builds\include_clean;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Desktop\VRPN v7.32 Builds\x86\Release\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Desktop\VRPN v7.32 Builds\include_clean;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Desktop\VRPN v7.32 Builds\x64\Debug\lib;D:\Desktop\VRPN v7.32 Builds\x64\Debug\lib\vrpn;D:\Desktop\VRPN v7.32 Builds\x64\Debug\lib\vrpn_server;D:\Desktop\VRPN v7.32 Builds\x64\Debug\lib\quat;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Desktop\VRPN Imager\VRPN-snapshot-Visual-Studio-10 Win64\vrpn-install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Desktop\VRPN v7.32 Builds\include_clean;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Desktop\VRPN v7.32 Builds\x64\Release\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -120,7 +120,7 @@
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>vrpnserver.lib; quat.lib</AdditionalDependencies>
+      <AdditionalDependencies>vrpn.lib;vrpn_server.lib;quat.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -146,7 +146,7 @@
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>vrpnserver.lib; quat.lib</AdditionalDependencies>
+      <AdditionalDependencies>vrpn.lib;vrpn_server.lib;quat.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -170,7 +170,7 @@
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>vrpnserver.lib; quat.lib</AdditionalDependencies>
+      <AdditionalDependencies>vrpn.lib;vrpn_server.lib;quat.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -194,7 +194,7 @@
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>vrpnserver.lib; quat.lib</AdditionalDependencies>
+      <AdditionalDependencies>vrpn.lib;vrpn_server.lib;quat.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
